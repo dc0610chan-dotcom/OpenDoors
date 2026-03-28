@@ -7,11 +7,13 @@ page = st.sidebar.radio("Navigate", pages)
 
 # --- HOME PAGE ---
 if page == "Home":
-    st.title("Welcome to the Hackathon Website!")
+    st.title("Welcome to our Hackathon Website!")
     st.markdown("""
-    This website helps high school students explore future directions
-    that fit their values and interests, rather than following what society expects.
+    High schoolers are pressured into university or nothing thinking before they even know who they are. This leads to anxiety, debt, and misguided life choices.
+Open Door helps them discover a direction that fits the life they actually want, not just the path everyone expects.
+
     """)
+ ####bottom of home apge  
     st.markdown("**External Resources:**")
     st.markdown("""
     - [Support Helpline](#)
@@ -24,14 +26,21 @@ elif page == "Career Quiz":
     st.title("Career Quiz")
     st.markdown("Answer the questions to get suggestions that match your interests!")
 
-    # Example Question 1
+   #Question 1
     q1 = st.radio(
         "If you had a free day right now, what would you do first?",
-        ("Call or spend time with someone you love",
-         "Clean / organize your space",
-         "Learn a new hobby or skill",
-         "Take a nap / relax")
-    )
+        ("Failing and looking incompetent", "Not knowing where to start", "That it might be boring or repetitive", "It will be physically demanding", "Feeling socially awkward or judged", "Making a mistake that affects others")
+                )
+   
+   #Question 16
+    q1 = st.radio(
+        "What scares you most about trying something new?",
+        ("Failing and looking incompetent", "Not knowing where to start", "That it might be boring or repetitive", "It will be physically demanding", "Feeling socially awkward or judged", "Making a mistake that affects others")
+                )
+    
+    
+    
+
 
     # Example scoring logic
     if st.button("See suggestion"):
@@ -71,9 +80,9 @@ elif page == "Writing on the Wall":
 elif page == "Creators":
     st.title("Meet the Team")
     st.markdown("""
-    - **Mickey** – Idea & Python wizard
-    - **Friend 1** – Frontend & Content
-    - **Friend 2** – Backend support (if they show up)
+    - **Mikaela** – Idea & Python wizard
+    - **Davin** – Frontend & Content
+    - **Joshua** – Backend support (if they show up)
     
     This team built this website to give students a reflective, interactive space to explore life choices.
     """)
