@@ -1,6 +1,6 @@
-
 import streamlit as st
-st.set_page_config(page_title="Our App", layout="wide")
+
+st.set_page_config(page_title="About the Creator", layout="wide")
 
 st.markdown("""
     <style>
@@ -25,9 +25,9 @@ st.markdown("""
     <div class="nav">
         <a href="/" target="_self"> Home Page </a>
         <a href="/About_Creators" target="_self"> About the Creator </a>
-        <a href="/Carrer_Quiz" target="_self"> Career Quiz </a>
+        <a href="/Quiz" target="_self"> Carrer Quiz </a>
     </div>
 """, unsafe_allow_html=True)
 
-st.title("Welcome! 🌟")
-st.write("Welcome to our hackathon project!")
+st.title("About the Creator 👤")
+st.write("Hi! We are the creators of this project.")
