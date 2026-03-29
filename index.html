@@ -322,6 +322,19 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        .mission-item a {
+            color: #ffffff;
+            /* change to whatever you want */
+            text-decoration: none;
+            /* optional: removes underline */
+            font-weight: 600;
+            /* optional: makes it nicer */
+        }
+
+        .mission-item a:hover {
+            color: #e0e7ff;
+        }
     </style>
 </head>
 
@@ -348,6 +361,7 @@
         <section id="home" class="page active">
             <div class="grid-hero">
                 <div>
+                    <div class="badge badge-clear"> </div>
                     <h1 class="hero-title">OpenDoors</h1>
                     <p class="lead">This website is meant to support high school students who are still unsure about
                         what career path they may want to pursue in university and beyond. Instead of guessing blindly,
@@ -374,140 +388,145 @@
                         </p>
                         <div class="mission-items">
                             <div class="mission-item">
-                                <a href="https://kidshelpphone.ca/">
+                                <a href="https://kidshelpphone.ca/" target="_blank" rel="noopener noreferrer">
                                     Kids Help Phone
                                 </a>
                             </div>
                             <div class="mission-item">
-                                <a href="https://open.spotify.com/playlist/20SCED0Rj1U1UKNygrfRMw?si=1c3b7e8c430d41a3">
+                                <a href="https://open.spotify.com/playlist/20SCED0Rj1U1UKNygrfRMw?si=1c3b7e8c430d41a3"
+                                    target="_blank" rel="noopener noreferrer">
                                     A playlist that captures the feeling
                                 </a>
                             </div>
                             <div class="mission-item">
-                                There are many resources out there to help people exactly like you.
+                                <a href="https://www.youtube.com/results?search_query=what+do+i+do+after+high+school"
+                                    target="_blank" rel="noopener noreferrer">
+                                    Some videos that might be helpful
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <section id="quiz" class="page">
-                    <div id="quizStart" class="card quiz-stage">
-                        <div class="card-pad">
-                            <h2 style="font-size:36px; margin-bottom:12px;">Ready to begin?</h2>
-                            <p class="lead" style="max-width:700px;">Press the button below to begin the quiz.</p>
-                            <div class="btn-row">
-                                <button class="btn btn-primary" type="button" onclick="startQuiz()">Start Quiz</button>
-                            </div>
-                        </div>
+        </section>
+        <section id="quiz" class="page">
+            <div id="quizStart" class="card quiz-stage">
+                <div class="card-pad">
+                    <h2 style="font-size:36px; margin-bottom:12px;">Ready to begin?</h2>
+                    <p class="lead" style="max-width:700px;">Press the button below to begin the quiz.</p>
+                    <div class="btn-row">
+                        <button class="btn btn-primary" type="button" onclick="startQuiz()">Start Quiz</button>
                     </div>
+                </div>
+            </div>
 
-                    <div id="quizActive" class="card quiz-stage hidden">
-                        <div class="card-pad">
-                            <div class="badge badge-indigo">✎ <span id="questionNumber"></span></div>
-                            <div id="questionText" class="question-text"></div>
-                            <div id="optionsGrid" class="options-grid"></div>
-                        </div>
-                    </div>
+            <div id="quizActive" class="card quiz-stage hidden">
+                <div class="card-pad">
+                    <div class="badge badge-indigo">✎ <span id="questionNumber"></span></div>
+                    <div id="questionText" class="question-text"></div>
+                    <div id="optionsGrid" class="options-grid"></div>
+                </div>
+            </div>
 
-                    <div id="quizComplete" class="card quiz-stage hidden">
-                        <div class="card-pad">
-                            <div class="badge badge-green">✓ Quiz Complete</div>
-                            <h2 style="font-size:36px; margin:18px 0 12px;">You have completed the quiz</h2>
-                            <p class="lead" style="max-width:700px;">Great job taking your first step towards your
-                                future! Your
-                                responses have been recorded. You can now move on to view recommendations for future
-                                careers.
-                            </p>
-                            <div class="btn-row">
-                                <button class="btn btn-primary" type="button" onclick="showRecommendation()">See
-                                    Recommendations</button>
-                                <button class="btn btn-secondary" type="button" onclick="resetQuiz()">Take Quiz
-                                    Again</button>
-                            </div>
-                        </div>
+            <div id="quizComplete" class="card quiz-stage hidden">
+                <div class="card-pad">
+                    <div class="badge badge-green">✓ Quiz Complete</div>
+                    <h2 style="font-size:36px; margin:18px 0 12px;">You have completed the quiz</h2>
+                    <p class="lead" style="max-width:700px;">Great job taking your first step towards your
+                        future! Your
+                        responses have been recorded. You can now move on to view recommendations for future
+                        careers.
+                    </p>
+                    <div class="btn-row">
+                        <button class="btn btn-primary" type="button" onclick="showRecommendation()">See
+                            Recommendations</button>
+                        <button class="btn btn-secondary" type="button" onclick="resetQuiz()">Take Quiz
+                            Again</button>
                     </div>
-                    <div id="recommendation" class="recommendation-card"></div>
-                </section>
+                </div>
+            </div>
+            <div id="recommendation" class="recommendation-card"></div>
+        </section>
 
-                <section id="creators" class="page">
-                    <h1 style="font-size:52px; margin: 18px 0 10px;">Meet the Developers</h1>
-                    <p class="lead" style="max-width:700px;">This page introduces the three developers behind the
-                        project, along
-                        with a short write-up for each.</p>
-                    <div class="creator-grid">
-                        <div class="card">
-                            <div class="card-pad">
-                                <div class="avatar-chip">D</div>
-                                <h3 style="font-size:32px; margin-bottom:6px;">Davin</h3>
-                                <p style="font-size:14px; font-weight:700; color:#6d28d9;">Developer</p>
-                                <p style="font-size:16px; line-height:1.8; color:#475569;">Hi there. My name is Davin. I
-                                    was
-                                    originally studying Business Administration, but I am now switching over to Computer
-                                    Science
-                                    after discovering what I truly enjoy once I got into university. This is why we
-                                    created
-                                    "OpenDoors",
-                                    a tool where high school students like me who doesn't know what they should go into
-                                    in after
-                                    high school.
-                                    This tool helps students discover what career they should go into based on their
-                                    interests
-                                    before committing
-                                    and spending money going to university.</p>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-pad">
-                                <div class="avatar-chip">M</div>
-                                <h3 style="font-size:32px; margin-bottom:6px;">Mikaela</h3>
-                                <p style="font-size:14px; font-weight:700; color:#6d28d9;">Back-End Logic</p>
-                                <p style="font-size:16px; line-height:1.8; color:#475569;">Hi! I’m Mikaela, a first-year
-                                    Computer Science student with a minor in Business Administration at Laurier
-                                    University.
-                                    While figuring out my post-secondary path, I bounced between majors — psychology,
-                                    engineering, English, chemistry — trying to find my fit. No online test or in-school
-                                    guidance really helped me, and everyone seemed to have their own vision for my
-                                    future, not
-                                    mine. That’s why I believe a platform like OpenDoors is so important: a space to
-                                    explore
-                                    yourself, connect with others, and discover the many paths that exist.</p>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-pad">
-                                <div class="avatar-chip">J</div>
-                                <h3 style="font-size:32px; margin-bottom:6px;">Josh</h3>
-                                <p style="font-size:14px; font-weight:700; color:#6d28d9;">Content and Integration</p>
-                                <p style="font-size:16px; line-height:1.8; color:#475569;">I’m Joshua, a first-year
-                                    Computer
-                                    Science major at WLU. I’ve always liked computers, but I was never sure which
-                                    program was
-                                    right for me. That’s why I wanted to help create a website for teens like me who
-                                    aren’t sure
-                                    what career path or future they want. Our website, OpenDoors, allows high schoolers
-                                    to
-                                    figure
-                                    out what they want to do in the near future.</p>
-                            </div>
-                        </div>
+        <section id="creators" class="page">
+            <h1 style="font-size:52px; margin: 18px 0 10px;">Meet the Developers</h1>
+            <p class="lead" style="max-width:700px;">This page introduces the three developers behind the
+                project, along
+                with a short write-up for each.</p>
+            <div class="creator-grid">
+                <div class="card">
+                    <div class="card-pad">
+                        <div class="avatar-chip">D</div>
+                        <h3 style="font-size:32px; margin-bottom:6px;">Davin</h3>
+                        <p style="font-size:14px; font-weight:700; color:#6d28d9;">Developer</p>
+                        <p style="font-size:16px; line-height:1.8; color:#475569;">Hi there. My name is Davin. I
+                            was
+                            originally studying Business Administration, but I am now switching over to Computer
+                            Science
+                            after discovering what I truly enjoy once I got into university. This is why we
+                            created
+                            "OpenDoors",
+                            a tool where high school students like me who doesn't know what they should go into
+                            in after
+                            high school.
+                            This tool helps students discover what career they should go into based on their
+                            interests
+                            before committing
+                            and spending money going to university.</p>
                     </div>
-                </section>
+                </div>
+                <div class="card">
+                    <div class="card-pad">
+                        <div class="avatar-chip">M</div>
+                        <h3 style="font-size:32px; margin-bottom:6px;">Mikaela</h3>
+                        <p style="font-size:14px; font-weight:700; color:#6d28d9;">Back-End Logic</p>
+                        <p style="font-size:16px; line-height:1.8; color:#475569;">Hi! I’m Mikaela, a first-year
+                            Computer Science student with a minor in Business Administration at Laurier
+                            University.
+                            While figuring out my post-secondary path, I bounced between majors — psychology,
+                            engineering, English, chemistry — trying to find my fit. No online test or in-school
+                            guidance really helped me, and everyone seemed to have their own vision for my
+                            future, not
+                            mine. That’s why I believe a platform like OpenDoors is so important: a space to
+                            explore
+                            yourself, connect with others, and discover the many paths that exist.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-pad">
+                        <div class="avatar-chip">J</div>
+                        <h3 style="font-size:32px; margin-bottom:6px;">Josh</h3>
+                        <p style="font-size:14px; font-weight:700; color:#6d28d9;">Content and Integration</p>
+                        <p style="font-size:16px; line-height:1.8; color:#475569;">I’m Joshua, a first-year
+                            Computer
+                            Science major at WLU. I’ve always liked computers, but I was never sure which
+                            program was
+                            right for me. That’s why I wanted to help create a website for teens like me who
+                            aren’t sure
+                            what career path or future they want. Our website, OpenDoors, allows high schoolers
+                            to
+                            figure
+                            out what they want to do in the near future.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                <section id="wall" class="page">
-                    <div class="badge badge-violet">✎ Anonymous Wall</div>
-                    <h1 style="font-size:52px; margin: 18px 0 10px;">Writing on the Wall</h1>
-                    <p class="lead" style="max-width:700px;">Post anonymous messages for others to read. Please keep it
-                        respectful.</p>
-                    <div class="card">
-                        <div class="card-pad">
-                            <textarea id="wallMessage" placeholder="Write something anonymous..."></textarea>
-                            <div class="btn-row">
-                                <button class="btn btn-primary" onclick="postMessage()">Post Message</button>
-                            </div>
-                        </div>
+        <section id="wall" class="page">
+            <div class="badge badge-violet">✎ The Wall</div>
+            <h1 style="font-size:52px; margin: 18px 0 10px;">Writing on the Wall</h1>
+            <p class="lead" style="max-width:700px;">Post messages for others to read and see that you're not alone.
+                Please keep it
+                respectful.</p>
+            <div class="card">
+                <div class="card-pad">
+                    <textarea id="wallMessage" placeholder="Write something anonymous..."></textarea>
+                    <div class="btn-row">
+                        <button class="btn btn-primary" onclick="postMessage()">Post Message</button>
                     </div>
-                    <div id="wallMessages" style="margin-top:24px; display:grid; gap:16px;"></div>
-                </section>
+                </div>
+            </div>
+            <div id="wallMessages" style="margin-top:24px; display:grid; gap:16px;"></div>
+        </section>
     </main>
 
     <script>
