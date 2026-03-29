@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OpenDoors</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #0f172a;
+            background: linear-gradient(to bottom, #ede9fe 0%, #ffffff 50%, #e0e7ff 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.78);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 0;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            background: linear-gradient(135deg, #7c3aed, #4f46e5);
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.22);
+        }
+
+        .brand-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .brand-sub {
+            font-size: 12px;
+            color: #64748b;
+            margin: 2px 0 0;
+        }
+
+        nav {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn,
+        .btn,
+        .option-btn {
+            border: 0;
+            cursor: pointer;
+            transition: 0.2s ease;
+            font-weight: 600;
+        }
+
+        .nav-btn {
+            border-radius: 999px;
+            padding: 10px 16px;
+            background: transparent;
+            color: #0f172a;
+        }
+
+        .nav-btn.active {
+            background: #0f172a;
+            color: white;
+        }
+
+        .nav-btn:hover,
+        .btn:hover,
+        .option-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        main {
+            padding: 32px 0 48px;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border-radius: 999px;
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .badge-violet {
+            background: #ede9fe;
+            color: #6d28d9;
+        }
+
+        .badge-indigo {
+            background: #e0e7ff;
+            color: #4338ca;
+        }
+
+        .badge-amber {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .badge-green {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .grid-hero {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .card {
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+            overflow: hidden;
+        }
+
+        .card-pad {
+            padding: 28px;
+        }
+
+        .gradient-card {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed, #d946ef);
+            color: white;
+        }
+
+        h1,
+        h2,
+        h3,
+        p {
+            margin-top: 0;
+        }
+
+        .hero-title {
+            font-size: clamp(38px, 7vw, 64px);
+            line-height: 1.02;
+            margin-bottom: 18px;
+        }
+
+        .lead {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #475569;
+            max-width: 760px;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+
+        .btn {
+            border-radius: 18px;
+            padding: 16px 22px;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background: #0f172a;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #0f172a;
+            border: 1px solid #cbd5e1;
+        }
+
+        .mission-items {
+            display: grid;
+            gap: 12px;
+            margin-top: 26px;
+        }
+
+        .mission-item {
+            border-radius: 18px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(8px);
+        }
+
+        .quiz-stage {
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+        .question-text {
+            min-height: 120px;
+            font-size: clamp(24px, 3vw, 34px);
+            line-height: 1.45;
+            font-weight: 700;
+            color: #1e293b;
+            margin-top: 20px;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .option-btn {
+            min-height: 66px;
+            border-radius: 18px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e293b;
+            box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
+            padding: 14px 16px;
+            text-align: left;
+        }
+
+        .option-btn:hover {
+            background: #f5f3ff;
+            color: #6d28d9;
+        }
+
+        .creator-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .avatar-chip {
+            width: 56px;
+            height: 56px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+            background: linear-gradient(135deg, #7c3aed, #4f46e5);
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.22);
+            margin-bottom: 16px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid #cbd5e1;
+            font-size: 16px;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .recommendation-card {
+            margin-top: 24px;
+        }
+
+        .recommendation-card ul {
+            margin-top: 8px;
+        }
+
+        @media (max-width: 980px) {
+
+            .grid-hero,
+            .creator-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container header-inner">
+            <div class="brand">
+                <div class="brand-icon">✦</div>
+                <div>
+                    <p class="brand-title"> </p>
+                    <p class="brand-sub"> </p>
+                </div>
+            </div>
+            <nav>
+                <button class="nav-btn active" data-page="home">Home</button>
+                <button class="nav-btn" data-page="quiz">Quiz</button>
+                <button class="nav-btn" data-page="creators">Creators</button>
+                <button class="nav-btn" data-page="wall">Writing on the Wall</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="home" class="page active">
+            <div class="grid-hero">
+                <div>
+                    <h1 class="hero-title">OpenDoors</h1>
+                    <p class="lead">This website is meant to support high school students who are still unsure about
+                        what career path they may want to pursue in university and beyond. Instead of guessing blindly,
+                        users can take an interactive quiz that helps them reflect on what they are interested in, where
+                        they naturally do well, and how they are doing academically.</p>
+                    <p class="lead">By bringing together interests, strengths, and academic habits, the quiz is designed
+                        to guide users toward career directions that feel more realistic, personal, and worth exploring
+                        further. The goal is not to force one perfect answer, but to help students understand themselves
+                        better and feel more confident about their next steps.</p>
+                    <div class="btn-row">
+                        <button class="btn btn-primary" onclick="goToPage('quiz')">Go to Quiz →</button>
+                        <button class="btn btn-secondary" onclick="goToPage('creators')">Meet the Creators</button>
+                    </div>
+                </div>
+                <div class="card gradient-card">
+                    <div class="card-pad">
+                        <h2 style="font-size:34px; margin-bottom:14px;">Our mission is to help students explore possible
+                            career paths</h2>
+                        <p style="font-size:16px; line-height:1.7; opacity:0.9;">Our team realized that choosing a
+                            career can be difficult, especially in Grade 12 when students are preparing to enter
+                            post-secondary education. Many people struggle to balance what they enjoy with what they
+                            want to pursue as a career. That’s why we created OpenDoors — a tool designed to help
+                            students, or anyone exploring a new path, discover careers that align with their interests
+                            and personality. OpenDoors provides suggestions to help guide users toward careers that may
+                            best fit them.</p>
+                        <div class="mission-items">
+                            <div class="mission-item">Explore interests and preferences</div>
+                            <div class="mission-item">Highlight strengths and academic patterns</div>
+                            <div class="mission-item">Suggest career directions worth exploring</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="quiz" class="page">
+            <div id="quizStart" class="card quiz-stage">
+                <div class="card-pad">
+                    <h2 style="font-size:36px; margin-bottom:12px;">Ready to begin?</h2>
+                    <p class="lead" style="max-width:700px;">Press the button below to begin the quiz.</p>
+                    <div class="btn-row">
+                        <button class="btn btn-primary" type="button" onclick="startQuiz()">Start Quiz</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="quizActive" class="card quiz-stage hidden">
+                <div class="card-pad">
+                    <div class="badge badge-indigo">✎ <span id="questionNumber"></span></div>
+                    <div id="questionText" class="question-text"></div>
+                    <div id="optionsGrid" class="options-grid"></div>
+                </div>
+            </div>
+
+            <div id="quizComplete" class="card quiz-stage hidden">
+                <div class="card-pad">
+                    <div class="badge badge-green">✓ Quiz Complete</div>
+                    <h2 style="font-size:36px; margin:18px 0 12px;">You have completed the quiz</h2>
+                    <p class="lead" style="max-width:700px;">Great job taking your first step towards your future! Your
+                        responses have been recorded. You can now move on to view recommendations for future careers.
+                    </p>
+                    <div class="btn-row">
+                        <button class="btn btn-primary" type="button" onclick="showRecommendation()">See
+                            Recommendations</button>
+                        <button class="btn btn-secondary" type="button" onclick="resetQuiz()">Take Quiz Again</button>
+                    </div>
+                </div>
+            </div>
+            <div id="recommendation" class="recommendation-card"></div>
+        </section>
+
+        <section id="creators" class="page">
+            <h1 style="font-size:52px; margin: 18px 0 10px;">Meet the Developers</h1>
+            <p class="lead" style="max-width:700px;">This page introduces the three developers behind the project, along
+                with a short write-up for each.</p>
+            <div class="creator-grid">
+                <div class="card">
+                    <div class="card-pad">
+                        <div class="avatar-chip">D</div>
+                        <h3 style="font-size:32px; margin-bottom:6px;">Davin</h3>
+                        <p style="font-size:14px; font-weight:700; color:#6d28d9;">Developer</p>
+                        <p style="font-size:16px; line-height:1.8; color:#475569;">Hi there. My name is Davin. I was
+                            originally studying Business Administration, but I am now switching over to Computer Science
+                            after discovering what I truly enjoy once I got into university. This is why we created
+                            \"X\", because high school students like me did not know what they should go into in
+                            post-secondary. This tool helps students discover what career they should go into based on
+                            their interests before committing and spending a lot of money going to university.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-pad">
+                        <div class="avatar-chip">M</div>
+                        <h3 style="font-size:32px; margin-bottom:6px;">Mikaela</h3>
+                        <p style="font-size:14px; font-weight:700; color:#6d28d9;">Back-End Logic</p>
+                        <p style="font-size:16px; line-height:1.8; color:#475569;">Hi! I’m Mikaela, a first-year
+                            Computer Science student with a minor in Business Administration at Laurier University.
+                            While figuring out my post-secondary path, I bounced between majors — psychology,
+                            engineering, English, chemistry — trying to find my fit. No online test or in-school
+                            guidance really helped me, and everyone seemed to have their own vision for my future, not
+                            mine. That’s why I believe a platform like OpenDoors is so important: a space to explore
+                            yourself, connect with others, and discover the many paths that exist.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-pad">
+                        <div class="avatar-chip">J</div>
+                        <h3 style="font-size:32px; margin-bottom:6px;">Josh</h3>
+                        <p style="font-size:14px; font-weight:700; color:#6d28d9;">Content and Integration</p>
+                        <p style="font-size:16px; line-height:1.8; color:#475569;">I’m Joshua, a first-year Computer
+                            Science major at WLU. I’ve always liked computers, but I was never sure which program was
+                            right for me. That’s why I wanted to help create a website for teens like me who aren’t sure
+                            what career path or future they want. Our website, OpenDoors, allows high schoolers to
+                            figure
+                            out what they want to do in the near future.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="wall" class="page">
+            <div class="badge badge-violet">✎ Anonymous Wall</div>
+            <h1 style="font-size:52px; margin: 18px 0 10px;">Writing on the Wall</h1>
+            <p class="lead" style="max-width:700px;">Post anonymous messages for others to read. Please keep it
+                respectful.</p>
+            <div class="card">
+                <div class="card-pad">
+                    <textarea id="wallMessage" placeholder="Write something anonymous..."></textarea>
+                    <div class="btn-row">
+                        <button class="btn btn-primary" onclick="postMessage()">Post Message</button>
+                    </div>
+                </div>
+            </div>
+            <div id="wallMessages" style="margin-top:24px; display:grid; gap:16px;"></div>
+        </section>
+    </main>
+
+    <script>
+        const scoreKeys = ['agri', 'uti', 'constr', 'manu', 'retail', 'trans', 'infoind', 'finance', 'real_estate', 'professional', 'management', 'admin', 'education', 'health', 'arts', 'food', 'publicy', 'other'];
+        function createInitialScores() {
+            return { agri: 0, uti: 0, constr: 0, manu: 0, retail: 0, trans: 0, infoind: 0, finance: 0, real_estate: 0, professional: 0, management: 0, admin: 0, education: 0, health: 0, arts: 0, food: 0, publicy: 0, other: 0 };
+        }
+        let scores = createInitialScores();
+
+        const quizQuestions = [
+            { question: 'If you had a free day right now, what would you do first?', options: ['Call or spend time with someone you love', 'Clean / organize your space', 'Learn a new hobby or skill', 'Take a nap / relax', 'Watch your favorite show or media', 'Explore your town / go outside'] },
+            { question: 'What are your 3 favorite hobbies?', options: ['Creating art, music, or writing', 'Playing or watching sports', 'Volunteering / helping others', 'Gaming, coding, or digital projects', 'Building, fixing, or crafting', 'Exploring nature / outdoor activities'] },
+            { question: 'What kind of hobby really excites you?', options: ['Making something with your hands (crafts, building, cooking)', 'Expressing yourself creatively (music, writing, art)', 'Playing or watching sports / staying active', 'Solving puzzles or learning new concepts', 'Spending time with friends / social activities', 'Being outdoors / exploring nature'] },
+            { question: 'How do you usually spend your evenings?', options: ['Watching shows or movies', 'Reading or learning something new', 'Hanging out with friends', 'Doing hands-on projects (crafts, cooking, building)', 'Planning / organizing your week', 'Relaxing in nature / exercising'] },
+            { question: 'Which of these sounds like your ideal weekend?', options: ['Attending a concert, art exhibit, or performance', 'Hosting or attending a dinner / party', 'Working on a personal project or hobby', 'Going on a short trip or exploring your town', 'Volunteering or helping a local cause', 'Staying in and relaxing'] },
+            { question: 'What is your ideal work setting?', options: ['A busy office with clear tasks and schedules', 'A creative studio or workshop', 'Outdoors or in nature', 'Flexible coworking spaces / cafes / changing environments', 'A calm, quiet room with minimal interruptions', 'High-energy, social, hands-on environment'] },
+            { question: 'What is your approach to tasks?', options: ['Follow a clear step-by-step plan', 'Work independently and creatively', 'Collaborate and brainstorm with others', 'Jump in and figure things out as you go', 'Focus on precision and details', 'Focus on peoples needs and feelings'] },
+            { question: 'What is your preferred pace of work?', options: ['Fast, dynamic, and changing constantly', 'Steady but challenging', 'Slow, deliberate, and structured', 'Flexible, adaptable depending on the day', 'Energetic and social', 'Calm and focused'] },
+            { question: 'What is your preferred level of supervision?', options: ['Completely independently', 'Mostly independently, occasional check-ins', 'In a team with shared responsibility', 'With clear instructions and supervision', 'Rotating between teamwork and solo work', 'Being guided by a mentor or leader'] },
+            { question: 'When do you do your best work?', options: ['Early in the morning, when everything is calm', 'Late at night, when I’m inspired', 'In short bursts with lots of variety', 'When I’m actively moving or hands-on', 'When collaborating with others', 'When I can experiment and try new ideas'] },
+            { question: 'How do you usually recharge after a busy day?', options: ['Spending time with close friends or family', 'Being alone reading, gaming, or watching media', 'Going for a walk or doing something active', 'Trying a new hobby or exploring something new', 'Volunteering or helping someone', 'Organizing or planning your space'] },
+            { question: 'In a social gathering, which describes you best?', options: ['I thrive in large groups and enjoy meeting new people', 'I prefer small groups of close friends', 'I like being around people but also need breaks alone', 'I mostly observe rather than actively participate', 'I avoid social gatherings whenever possible', 'I adapt easily to any size or type of group'] },
+            { question: 'How do you handle energy demands during a busy week?', options: ['I’m energized by activity and social interaction', 'I manage energy with planned breaks', 'I focus best when calm and consistent', 'I like alternating high-energy bursts with downtime', 'I prefer low-energy, predictable routines', 'I adapt my energy to whatever the day demands'] },
+            { question: 'When exploring new experiences, which sounds most like you?', options: ['I dive in headfirst and love variety', 'I prefer to try a few new things at a time', 'I stick to what I know', 'I plan new experiences carefully before doing them', 'I like spontaneous adventures but also enjoy downtime', 'I mostly observe new experiences rather than participate'] },
+            { question: 'When faced with a new challenge, what’s your first instinct?', options: ['Analyze the data and look for patterns', 'Brainstorm creative solutions, even unusual ones', 'Ask others for input and collaborate', 'Tackle it hands-on and learn by doing', 'Follow step-by-step instructions carefully', 'Take time to observe and reflect before acting'] },
+            { question: 'What scares you most about trying something new?', options: ['Failing and looking incompetent', 'Not knowing where to start', 'That it might be boring or repetitive', 'It will be physically demanding', 'Feeling socially awkward or judged', 'Making a mistake that affects others'] },
+            { question: 'What excites you most about trying something new?', options: ['Solving a problem or overcoming a challenge', 'Learning something new and expanding skills', 'Being creative and trying something original', 'Meeting or working with new people', 'Getting hands-on experience', 'Exploring the unknown or unexpected'] },
+            { question: 'Which of these motivates you most in your career?', options: ['Making a positive difference in other people’s lives', 'Achieving financial success', 'Gaining recognition or fame', 'Creating stability for yourself and loved ones', 'Exploring new ideas and creative possibilities', 'Building a family or close personal relationships alongside work'] },
+            { question: 'Which of these outcomes would make you feel most fulfilled?', options: ['Helping or mentoring others', 'Earning wealth or material success', 'Becoming well-known or influential', 'Feeling secure and stable in your life', 'Making something new, original, or impactful', 'Building strong relationships or a family'] },
+            { question: 'Which role sounds most appealing to you?', options: ['Leading a team, making big decisions, and being responsible for overall success', 'Creating ideas, content, or experiences that others engage with', 'Helping, supporting, or guiding people in meaningful ways', 'Building, fixing, or working with physical systems and environments', 'Organizing operations, keeping things running smoothly, and handling logistics', 'Working independently, taking risks, or pursuing opportunities for personal gain'] }
+        ];
+
+        const optionMappings = [
+            { 'Call or spend time with someone you love': ['health', 'education', 'food'], 'Clean / organize your space': ['admin', 'real_estate', 'uti'], 'Learn a new hobby or skill': ['arts', 'professional', 'infoind'], 'Take a nap / relax': ['uti', 'publicy', 'other'], 'Watch your favorite show or media': ['infoind', 'arts', 'education'], 'Explore your town / go outside': ['trans', 'agri', 'arts'] },
+            { 'Creating art, music, or writing': ['education', 'arts', 'food'], 'Playing or watching sports': ['arts', 'food', 'health'], 'Volunteering / helping others': ['publicy', 'education', 'health'], 'Gaming, coding, or digital projects': ['professional', 'infoind', 'arts'], 'Building, fixing, or crafting': ['manu', 'uti', 'constr'], 'Exploring nature / outdoor activities': ['trans', 'agri', 'arts'] },
+            { 'Making something with your hands (crafts, building, cooking)': ['manu', 'arts', 'constr'], 'Expressing yourself creatively (music, writing, art)': ['arts', 'infoind'], 'Playing or watching sports / staying active': ['food', 'arts', 'health'], 'Solving puzzles or learning new concepts': ['professional', 'infoind', 'education'], 'Spending time with friends / social activities': ['health', 'food'], 'Being outdoors / exploring nature': ['trans', 'agri', 'arts'] },
+            { 'Watching shows or movies': ['arts', 'infoind'], 'Reading or learning something new': ['education', 'infoind', 'professional'], 'Hanging out with friends': ['health', 'food'], 'Doing hands-on projects (crafts, cooking, building)': ['manu', 'arts', 'constr'], 'Planning / organizing your week': ['admin', 'publicy', 'management'], 'Relaxing in nature / exercising': ['trans', 'agri', 'food'] },
+            { 'Attending a concert, art exhibit, or performance': ['arts', 'infoind'], 'Hosting or attending a dinner / party': ['food', 'health', 'management'], 'Working on a personal project or hobby': ['management', 'manu', 'arts'], 'Going on a short trip or exploring your town': ['agri', 'arts', 'trans'], 'Volunteering or helping a local cause': ['publicy', 'health', 'education'], 'Staying in and relaxing': ['uti', 'publicy', 'other'] },
+            { 'A busy office with clear tasks and schedules': ['finance', 'admin', 'publicy'], 'A creative studio or workshop': ['arts', 'infoind', 'manu'], 'Outdoors or in nature': ['agri', 'trans', 'constr'], 'Flexible coworking spaces / cafes / changing environments': ['infoind', 'food', 'professional'], 'A calm, quiet room with minimal interruptions': ['education', 'health', 'uti'], 'High-energy, social, hands-on environment': ['food', 'health', 'retail'] },
+            { 'Follow a clear step-by-step plan': ['constr', 'uti', 'manu'], 'Work independently and creatively': ['infoind', 'professional', 'arts'], 'Collaborate and brainstorm with others': ['health', 'education', 'food'], 'Jump in and figure things out as you go': ['arts', 'trans', 'retail'], 'Focus on precision and details': ['admin', 'real_estate', 'finance'], 'Focus on people’s needs and feelings': ['other', 'education', 'health'] },
+            { 'Fast, dynamic, and changing constantly': ['management', 'retail', 'arts'], 'Steady but challenging': ['education', 'health', 'constr'], 'Slow, deliberate, and structured': ['finance', 'uti', 'admin'], 'Flexible, adaptable depending on the day': ['professional', 'real_estate', 'infoind'], 'Energetic and social': ['arts', 'retail', 'food'], 'Calm and focused': ['uti', 'publicy', 'education'] },
+            { 'Completely independently': ['infoind', 'arts', 'professional'], 'Mostly independently, occasional check-ins': ['real_estate', 'management', 'finance'], 'In a team with shared responsibility': ['health', 'food', 'education'], 'With clear instructions and supervision': ['constr', 'manu', 'uti'], 'Rotating between teamwork and solo work': ['arts', 'retail', 'trans'], 'Being guided by a mentor or leader': ['education', 'health', 'publicy'] },
+            { 'Early in the morning, when everything is calm': ['education', 'finance', 'uti'], 'Late at night, when I’m inspired': ['arts', 'infoind', 'professional'], 'In short bursts with lots of variety': ['food', 'retail', 'trans'], 'When I’m actively moving or hands-on': ['constr', 'agri', 'manu'], 'When collaborating with others': ['education', 'health', 'food'], 'When I can experiment and try new ideas': ['arts', 'professional', 'infoind'] },
+            { 'Spending time with close friends or family': ['education', 'health', 'food'], 'Being alone reading, gaming, or watching media': ['publicy', 'infoind', 'professional'], 'Going for a walk or doing something active': ['trans', 'agri', 'arts'], 'Trying a new hobby or exploring something new': ['food', 'infoind', 'arts'], 'Volunteering or helping someone': ['education', 'health', 'other'], 'Organizing or planning your space': ['admin', 'real_estate', 'manu'] },
+            { 'I thrive in large groups and enjoy meeting new people': ['arts', 'education', 'food'], 'I prefer small groups of close friends': ['health', 'education', 'professional'], 'I like being around people but also need breaks alone': ['real_estate', 'admin', 'arts'], 'I mostly observe rather than actively participate': ['uti', 'infoind', 'admin'], 'I avoid social gatherings whenever possible': ['infoind', 'uti', 'other'], 'I adapt easily to any size or type of group': ['trans', 'professional', 'food'] },
+            { 'I’m energized by activity and social interaction': ['arts', 'retail', 'food'], 'I manage energy with planned breaks': ['health', 'education', 'professional'], 'I focus best when calm and consistent': ['uti', 'publicy', 'finance'], 'I like alternating high-energy bursts with downtime': ['arts', 'infoind', 'food'], 'I prefer low-energy, predictable routines': ['admin', 'real_estate', 'manu'], 'I adapt my energy to whatever the day demands': ['constr', 'professional', 'trans'] },
+            { 'I dive in headfirst and love variety': ['arts', 'trans', 'food'], 'I prefer to try a few new things at a time': ['infoind', 'arts', 'professional'], 'I stick to what I know': ['uti', 'publicy', 'admin'], 'I plan new experiences carefully before doing them': ['retail', 'arts', 'finance'], 'I like spontaneous adventures but also enjoy downtime': ['retail', 'real_estate', 'arts'], 'I mostly observe new experiences rather than participate': ['health', 'other', 'education'] },
+            { 'Analyze the data and look for patterns': ['finance', 'professional', 'infoind'], 'Brainstorm creative solutions, even unusual ones': ['infoind', 'arts', 'professional'], 'Ask others for input and collaborate': ['health', 'food', 'education'], 'Tackle it hands-on and learn by doing': ['uti', 'constr', 'manu'], 'Follow step-by-step instructions carefully': ['trans', 'publicy', 'admin'], 'Take time to observe and reflect before acting': ['health', 'professional', 'education'] },
+            { 'Failing and looking incompetent': ['finance', 'professional', 'publicy'], 'Not knowing where to start': ['admin', 'education', 'health'], 'That it might be boring or repetitive': ['arts', 'infoind', 'food'], 'It will be physically demanding': ['trans', 'constr', 'manu'], 'Feeling socially awkward or judged': ['health', 'education', 'food'], 'Making a mistake that affects others': ['health', 'professional', 'education'] },
+            { 'Solving a problem or overcoming a challenge': ['finance', 'professional', 'uti'], 'Learning something new and expanding skills': ['infoind', 'education', 'professional'], 'Being creative and trying something original': ['arts', 'infoind', 'professional'], 'Meeting or working with new people': ['health', 'education', 'food'], 'Getting hands-on experience': ['manu', 'arts', 'constr'], 'Exploring the unknown or unexpected': ['health', 'professional', 'education'] },
+            { 'Making a positive difference in other people’s lives': ['health', 'education', 'food'], 'Achieving financial success': ['finance', 'real_estate', 'management'], 'Gaining recognition or fame': ['arts', 'infoind', 'management'], 'Creating stability for yourself and loved ones': ['publicy', 'admin', 'uti'], 'Exploring new ideas and creative possibilities': ['arts', 'infoind', 'professional'], 'Building a family or close personal relationships alongside work': ['health', 'food', 'education'] },
+            { 'Helping or mentoring others': ['health', 'education', 'food'], 'Earning wealth or material success': ['arts', 'finance', 'professional'], 'Becoming well-known or influential': ['arts', 'infoind', 'management'], 'Feeling secure and stable in your life': ['publicy', 'admin', 'uti'], 'Making something new, original, or impactful': ['arts', 'infoind', 'professional'], 'Building strong relationships or a family': ['health', 'food', 'education'] },
+            { 'Leading a team, making big decisions, and being responsible for overall success': ['finance', 'management', 'admin'], 'Creating ideas, content, or experiences that others engage with': ['arts', 'infoind', 'food'], 'Helping, supporting, or guiding people in meaningful ways': ['arts', 'infoind', 'management'], 'Building, fixing, or working with physical systems and environments': ['constr', 'manu', 'uti'], 'Organizing operations, keeping things running smoothly, and handling logistics': ['management', 'retail', 'admin'], 'Working independently, taking risks, or pursuing opportunities for personal gain': ['real_estate', 'professional', 'agri'] }
+        ];
+        const recommendationText = {
+            agri: { title: 'Agriculture, Forestry, Fishing and Hunting', body: 'You might enjoy work connected to land, resources, sustainability, or outdoor systems. < br > This industry is responsible for producing the food, raw materials, and natural resources that literally keep the world running every day.', links: [{ text: 'Ontario forestry careers', href: 'https://www.ontario.ca/page/forestry-careers' }, { text: 'Oil and energy jobs in Canada', href: 'https://www.workforce.ca/the-ultimate-guide-to-oil-jobs-in-canada/' }] },
+            uti: { title: 'Utilities', body: 'You might enjoy careers that keep electricity, water, gas, and infrastructure systems running. <br> This industry delivers essential services— electricity, natural gas, water, and wastewater management —that keep homes, businesses, and infrastructure running reliably every day. <br> Behind the scenes, there are engineers, grid operators, sustainability specialists, and infrastructure planners making sure entire cities function smoothly. It’s a mix of stability and innovation, especially as the world shifts toward renewable energy and smarter systems.', links: [{ text: 'Ontario government jobs', href: 'https://www.gojobs.gov.on.ca/' }, { text: 'Jobs in utilities', href: 'https://www.indeed.com/career-advice/finding-a-job/jobs-in-utilities-industry' }] },
+            constr: { title: 'Construction', body: 'You might enjoy construction, engineering, project coordination, or building-related careers. <br> This industry provides essential services like electricity, water, and natural gas that every home, school, and business depends on. <br> This isn’t just manual labor —there are project managers running multi-million dollar builds, architects designing skylines, and site supervisors leading teams. If you like seeing real, tangible results from your work, construction gives you that in a way few industries can.', links: [{ text: 'Construction jobs in Ontario', href: 'https://ca.indeed.com/Construction-jobs-in-Ontario?vjk=277f6d644d1452bb' }] },
+            manu: { title: 'Manufacturing', body: 'You might enjoy manufacturing, production, technical operations, or skilled trades. <br> This industry produces the goods and products people use daily, from cars and electronics to clothing and machinery. <br> Modern manufacturing includes robotics technicians, product designers, and systems engineers working with advanced technology. It’s a space where creativity meets precision, especially with automation and innovation changing how things are made.<br> Here are sites to consult about this.', links: [{ text: 'Ontario government jobs', href: 'https://www.gojobs.gov.on.ca/' }] },
+            retail: { title: 'Retail and Wholesale Trade', body: 'You might enjoy customer-facing work, sales, supply chains, or trend-driven business environments.<br> This industry connects products to people, managing how goods are bought, sold, and distributed at every level.<br> Beyond store jobs, there are buyers who decide what trends hit shelves, brand managers shaping entire companies, and logistics leads controlling global supply chains. If you’re interested in business, trends, or entrepreneurship, this industry can take you far.<br> Here are sites to consult about this.', links: [{ text: 'Wholesale trade jobs in Ontario', href: 'https://nl.jobbank.gc.ca/jobsearch/jobsearch?d=500&fn21=60020&fprov=ON' }, { text: 'Retail and wholesale jobs', href: 'https://ca.indeed.com/q-wholesale-trade-l-ontario-jobs.html' }] },
+            trans: { title: 'Transportation and Warehousing', body: 'You might enjoy logistics, transportation, operations, shipping, or large systems that move goods and people efficiently.<br> This industry moves goods and people across cities, countries, and the world.<br> This field includes logistics coordinators, supply chain analysts, and operations managers who keep global systems running smoothly. With e-commerce and international trade growing fast, these roles are more important —and more interesting— than ever. <br> Here are sites to consult about this.', links: [{ text: 'Ontario government jobs', href: 'https://www.gojobs.gov.on.ca/' }] },
+            infoind: { title: 'Information and Cultural Industries', body: 'You might enjoy media, communications, digital content, gaming, or technology work. <br> This industry creates and shares media, technology, and content that shape how we communicate and understand the world. <br> From film producers and game designers to digital content strategists and journalists, this space is full of creative and tech-driven careers. If you’ve ever wanted to influence culture, tell stories, or build platforms people use every day, this is where that happens. <br> Here are sites to consult about this.', links: [{ text: 'Ontario government jobs', href: 'https://www.gojobs.gov.on.ca/' }] },
+            finance: { title: 'Finance and Insurance', body: 'You might enjoy careers involving strategy, numbers, financial systems, money management, insurance, or business analysis. <br> This industry manages money, investments, and risk for individuals, businesses, and entire economies. <br> This field can lead to some of the most influential roles out there  ', links: [{ text: 'Finance degree careers', href: 'https://www.careeraddict.com/finance-degree-careers' }, { text: 'Finance career ideas', href: 'https://ca.indeed.com/career-advice/finding-a-job/ideas-for-job' }] },
+            real_estate: { title: 'Real Estate and Rental and Leasing', body: 'You might enjoy property, leasing, development, real estate sales, or long-term investment and negotiation work. <br> This industry focuses on buying, selling, and managing property and land. <br> This industry provides specialized expertise in areas like science, law, engineering, and technology.', links: [{ text: 'Types of real estate jobs', href: 'https://www.indeed.com/career-advice/finding-a-job/types-of-real-estate-jobs' }, { text: 'Real estate opportunities in Canada', href: 'https://cbgist.com/career/15-high-paying-real-estate-job-opportunities-in-canada/' }] },
+            professional: { title: 'Professional, Scientific and Technical Services', body: 'You might enjoy consulting, scientific, analytical, legal, engineering, or technical problem-solving careers. <br>  This industry provides specialized expertise in areas like science, law, engineering, and technology. <br> This includes consultants, software developers, researchers, and engineers solving complex real-world problems.', links: [{ text: 'Browse technical and professional careers', href: 'https://www.mynextmove.org/find/browse?c=54' }] },
+            management: { title: 'Management', body: 'You might enjoy leadership, decision-making, strategy, and coordinating people or systems. <br> This industry focuses on leading organizations, making decisions, and guiding businesses toward growth and success <br> These are roles like executives, operations directors, and strategy leads who shape the direction of entire companies. If you like leadership, big-picture thinking, and decision-making, this is where you move from participating to leading', links: [{ text: 'Leadership and management careers', href: 'https://interviewguy.com/jobs-for-leadership-and-management/' }] },
+            admin: { title: 'Administrative and Support Services', body: 'You might enjoy organizing systems, supporting operations, managing workflow, or keeping environments structured. <br> This industry supports organizations and maintains systems that keep environments clean, organized, and functional. <br> There are operations coordinators, facility managers, and environmental specialists working on sustainability and efficiency. It’s a space that quietly keeps everything else running — and is becoming more important with environmental challenges. ', links: [{ text: 'Ontario government jobs', href: 'https://www.gojobs.gov.on.ca/' }] },
+            education: { title: 'Educational Services', body: 'You might enjoy teaching, mentoring, training, curriculum work, or helping others develop knowledge and skills. Beyond teaching, there are curriculum designers, academic advisors, and education consultants shaping how people learn. If you like helping others grow or building systems that support learning, there are more paths here than most people realize.', links: [{ text: 'Non-teaching education jobs', href: 'https://www.devlinpeck.com/content/non-teaching-education-jobs' }] },
+            health: { title: 'Health Care and Social Assistance', body: 'You might enjoy helping people directly through health, care, wellness, counseling, or community support careers. This includes not just doctors and nurses, but art therapists or marriage councellors, social workers, and healthcare administrators. If you want work that directly impacts people’s lives, this is one of the most meaningful paths you can take.', links: [{ text: 'Ontario government jobs', href: 'https://www.gojobs.gov.on.ca/' }] },
+            arts: { title: 'Arts, Entertainment and Recreation', body: 'You might enjoy creative, expressive, performance-based, or experience-driven careers. There are actors, producers, creative technicians, event producers, and creative directors building the things people love. If you’re drawn to creativity, storytelling, or performance, this space turns passion into careers.', links: [{ text: 'Creative career ideas', href: 'https://ca.indeed.com/career-advice/finding-a-job/ideas-for-job' }] },
+            food: { title: 'Accommodation and Food Services', body: 'You might enjoy hospitality, food service, guest experience, events, or fast-paced people-oriented environments. It includes chefs, hotel managers, event coordinators, and hospitality leaders creating memorable experiences. If you like fast-paced environments and working with people, this field can take you anywhere in the world.', links: [{ text: 'Ontario government jobs', href: 'https://www.gojobs.gov.on.ca/' }] },
+            publicy: { title: 'Public Administration', body: 'You might enjoy work that supports public systems, programs, leadership, service, and large-scale decision-making. There are law enforcement officers, firehighters, military personnel, program managers, and public leaders shaping decisions that affect millions of people. If you want to influence real change at a large scale, this is where that work happens.', links: [{ text: 'Public administration careers', href: 'https://pathways2advancement.org/career-pathways/public-administration/careers-in-public-administration/' }] },
+            other: { title: 'Other Services', body: 'You might enjoy specialized service careers that support people, solve specific problems, or rely on practical expertise. There are technicians, specialists, and niche experts who build careers around very specific, in-demand skills. These paths are often overlooked, but they can be stable, well-paid, and surprisingly flexible.', links: [{ text: 'Ontario government jobs', href: 'https://www.gojobs.gov.on.ca/' }, { text: 'General career ideas', href: 'https://ca.indeed.com/career-advice/finding-a-job/ideas-for-job' }] }
+        };
+
+        const bannedWords = ['bitch', 'fuck', 'shit', 'dick', 'ass', 'cunt', 'pussy'];
+        let startedQuiz = false;
+        let currentQuestionIndex = 0;
+
+        const pages = document.querySelectorAll('.page');
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const quizStart = document.getElementById('quizStart');
+        const quizActive = document.getElementById('quizActive');
+        const quizComplete = document.getElementById('quizComplete');
+        const questionNumber = document.getElementById('questionNumber');
+        const questionText = document.getElementById('questionText');
+        const optionsGrid = document.getElementById('optionsGrid');
+        const recommendationDiv = document.getElementById('recommendation');
+        const wallMessagesContainer = document.getElementById('wallMessages');
+
+        function goToPage(page) {
+            pages.forEach(section => section.classList.toggle('active', section.id === page));
+            navButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.page === page));
+            if (page === 'quiz' && !startedQuiz && currentQuestionIndex < quizQuestions.length) resetQuiz();
+            if (page === 'wall') loadMessages();
+        }
+
+        navButtons.forEach(btn => btn.addEventListener('click', () => goToPage(btn.dataset.page)));
+        window.goToPage = goToPage;
+
+        function applyScoresForOption(option) {
+            const mappings = optionMappings[currentQuestionIndex]?.[option] || [];
+            mappings.forEach(key => { scores[key] += 1; });
+        }
+
+        function renderQuestion() {
+            const current = quizQuestions[currentQuestionIndex];
+            if (!current) return;
+            questionNumber.textContent = 'Question ' + (currentQuestionIndex + 1);
+            questionText.textContent = current.question;
+            optionsGrid.innerHTML = '';
+            current.options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.type = 'button';
+                button.textContent = option;
+                button.addEventListener('click', () => answerQuestion(option));
+                optionsGrid.appendChild(button);
+            });
+        }
+
+        function startQuiz() {
+            startedQuiz = true;
+            currentQuestionIndex = 0;
+            scores = createInitialScores();
+            recommendationDiv.innerHTML = '';
+            quizStart.classList.add('hidden');
+            quizComplete.classList.add('hidden');
+            quizActive.classList.remove('hidden');
+            renderQuestion();
+        }
+        window.startQuiz = startQuiz;
+
+        function answerQuestion(option) {
+            if (!startedQuiz) return;
+            applyScoresForOption(option);
+            if (currentQuestionIndex < quizQuestions.length - 1) {
+                currentQuestionIndex += 1;
+                renderQuestion();
+            } else {
+                startedQuiz = false;
+                currentQuestionIndex = quizQuestions.length;
+                quizActive.classList.add('hidden');
+                quizComplete.classList.remove('hidden');
+                questionNumber.textContent = '';
+                questionText.textContent = '';
+                optionsGrid.innerHTML = '';
+            }
+        }
+
+        function resetQuiz() {
+            startedQuiz = false;
+            currentQuestionIndex = 0;
+            scores = createInitialScores();
+            quizStart.classList.remove('hidden');
+            quizActive.classList.add('hidden');
+            quizComplete.classList.add('hidden');
+            questionNumber.textContent = '';
+            questionText.textContent = '';
+            optionsGrid.innerHTML = '';
+            recommendationDiv.innerHTML = '';
+        }
+        window.resetQuiz = resetQuiz;
+
+        function showRecommendation() {
+            let highestCategory = null;
+            let highestScore = -1;
+            scoreKeys.forEach(category => {
+                if (scores[category] > highestScore) {
+                    highestScore = scores[category];
+                    highestCategory = category;
+                }
+            });
+            if (!highestCategory) {
+                recommendationDiv.innerHTML = '';
+                return;
+            }
+            const data = recommendationText[highestCategory];
+            const linksHtml = data.links.map(link => '<li><a href="' + link.href + '" target="_blank" rel="noopener noreferrer">' + link.text + '</a></li>').join('');
+            recommendationDiv.innerHTML = '<div class="card"><div class="card-pad"><div class="badge badge-amber">Suggested Direction</div><h3 style="font-size:32px; margin:18px 0 10px;">' + data.title + '</h3><p class="lead" style="max-width:none;">' + data.body + '</p><p style="font-size:16px; color:#475569;">Here are a few links to explore:</p><ul>' + linksHtml + '</ul></div></div>';
+        }
+        window.showRecommendation = showRecommendation;
+
+        function filterMessage(text) {
+            let filtered = text;
+            bannedWords.forEach(word => {
+                const regex = new RegExp(word, 'gi');
+                filtered = filtered.replace(regex, '****');
+            });
+            return filtered;
+        }
+
+        function loadMessages() {
+            if (!wallMessagesContainer) return;
+            wallMessagesContainer.innerHTML = '';
+            let messages = [];
+            try {
+                messages = JSON.parse(localStorage.getItem('wallMessages') || '[]');
+                if (!Array.isArray(messages)) messages = [];
+            } catch {
+                messages = [];
+            }
+            messages.slice().reverse().forEach(msg => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                const pad = document.createElement('div');
+                pad.className = 'card-pad';
+                pad.textContent = msg;
+                card.appendChild(pad);
+                wallMessagesContainer.appendChild(card);
+            });
+        }
+
+        function postMessage() {
+            const textarea = document.getElementById('wallMessage');
+            if (!textarea) return;
+            let message = textarea.value.trim();
+            if (message === '') return;
+            message = filterMessage(message);
+            let messages = [];
+            try {
+                messages = JSON.parse(localStorage.getItem('wallMessages') || '[]');
+                if (!Array.isArray(messages)) messages = [];
+            } catch {
+                messages = [];
+            }
+            messages.push(message);
+            localStorage.setItem('wallMessages', JSON.stringify(messages));
+            textarea.value = '';
+            loadMessages();
+        }
+        window.postMessage = postMessage;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMessages();
+            resetQuiz();
+        });
+    </script>
+</body>
+
+</html>;

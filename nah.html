@@ -389,8 +389,9 @@
                 <div class="card-pad">
                     <div class="badge badge-green">✓ Quiz Complete</div>
                     <h2 style="font-size:36px; margin:18px 0 12px;">You have completed the quiz</h2>
-                    <p class="lead" style="max-width:700px;">Your responses have been recorded. You can now move on to
-                        view your recommendation for careers or majors.</p>
+                    <p class="lead" style="max-width:700px;">Great job taking your first step towards your future! Your
+                        responses have been recorded. You can now move on to
+                        view recommendations for future careers.</p>
                     <div class="btn-row">
                         <button class="btn btn-primary" type="button" onclick="showRecommendation()">See
                             Recommendations</button>
@@ -398,6 +399,9 @@
                     </div>
                 </div>
             </div>
+
+            <div id="recommendation" style="margin-top: 24px;"></div>
+
         </section>
 
         <section id="creators" class="page">
@@ -504,7 +508,7 @@
         const uti = "Utilities";
         const constr = "Construction";
         const manu = "Manufacturing";
-        const retail = "Retail Trade";
+        const retail = "Retail and Wholesale Trade";
         const trans = "Transportation and Warehousing";
         const infoind = "Information and Cultural Industries";
         const finance = "Finance and Insurance";
@@ -518,8 +522,6 @@
         const food = "Accommodation and Food Services";
         const publicy = "Public Administration Services";
         const other = "Other Services (excluding Public Administration)";
-
-        console.log("Initial agriculture score:", agri);
 
         const quizQuestions = [
             {
@@ -743,680 +745,585 @@
                 ]
             }
         ];
-        function submitQuestion(n) {
+        function submitQuestion(n, answer) {
             switch (n) {
                 case 1:
-                    if (!q1_answered) {
-                        if (q1 === "Call or spend time with someone you love") {
-                            scores.health += 1;
-                            scores.education += 1;
-                            scores.food += 1;
-                        } else if (q1 === "Clean / organize your space") {
-                            scores.admin += 1;
-                            scores.real_estate += 1;
-                            scores.uti += 1;
-                        } else if (q1 === "Learn a new hobby or skill") {
-                            scores.arts += 1;
-                            scores.constr += 1;
-                            scores.uti += 1;
-                        } else if (q1 === "Take a nap / relax") {
-                            scores.uti += 1;
-                            scores.publicy += 1;
-                            scores.other += 1;
-                        } else if (q1 === "Watch your favorite show or media") {
-                            scores.infoind += 1;
-                            scores.arts += 1;
-                            scores.education += 1;
-                        } else { // Explore your town / go outside
-                            scores.trans += 1;
-                            scores.agri += 1;
-                            scores.arts += 1;
-                        }
-                        q1_answered = true;
-                        answered += 1;
-
+                    if (answer === "Call or spend time with someone you love") {
+                        scores.health += 1;
+                        scores.education += 1;
+                        scores.food += 1;
+                    } else if (answer === "Clean / organize your space") {
+                        scores.admin += 1;
+                        scores.real_estate += 1;
+                        scores.uti += 1;
+                    } else if (answer === "Learn a new hobby or skill") {
+                        scores.arts += 1;
+                        scores.constr += 1;
+                        scores.uti += 1;
+                    } else if (answer === "Take a nap / relax") {
+                        scores.uti += 1;
+                        scores.publicy += 1;
+                        scores.other += 1;
+                    } else if (answer === "Watch your favorite show or media") {
+                        scores.infoind += 1;
+                        scores.arts += 1;
+                        scores.education += 1;
+                    } else { // Explore your town / go outside
+                        scores.trans += 1;
+                        scores.agri += 1;
+                        scores.arts += 1;
                     }
                     break;
 
                 case 2:
-                    if (!q2_answered) {
-                        if (q2 === "Creating art, music, or writing") {
-                            scores.education += 1;
-                            scores.arts += 1;
-                            scores.food += 1;
-                        } else if (q2 === "Playing or watching sports") {
-                            scores.arts += 1;
-                            scores.food += 1;
-                            scores.health += 1;
-                        } else if (q2 === "Volunteering / helping others") {
-                            scores.publicy += 1;
-                            scores.education += 1;
-                            scores.health += 1;
-                        } else if (q2 === "Gaming, coding, or digital projects") {
-                            scores.professional += 1;
-                            scores.infoind += 1;
-                            scores.arts += 1;
-                        } else if (q2 === "Building, fixing, or crafting") {
-                            scores.manu += 1;
-                            scores.uti += 1;
-                            scores.constr += 1;
-                        } else { // Exploring nature / outdoor activities
-                            scores.trans += 1;
-                            scores.agri += 1;
-                            scores.arts += 1;
-                        }
-                        q2_answered = true;
-                        answered += 1;
+                    if (answer === "Creating art, music, or writing") {
+                        scores.education += 1;
+                        scores.arts += 1;
+                        scores.food += 1;
+                    } else if (answer === "Playing or watching sports") {
+                        scores.arts += 1;
+                        scores.food += 1;
+                        scores.health += 1;
+                    } else if (answer === "Volunteering / helping others") {
+                        scores.publicy += 1;
+                        scores.education += 1;
+                        scores.health += 1;
+                    } else if (answer === "Gaming, coding, or digital projects") {
+                        scores.professional += 1;
+                        scores.infoind += 1;
+                        scores.arts += 1;
+                    } else if (answer === "Building, fixing, or crafting") {
+                        scores.manu += 1;
+                        scores.uti += 1;
+                        scores.constr += 1;
+                    } else { // Exploring nature / outdoor activities
+                        scores.trans += 1;
+                        scores.agri += 1;
+                        scores.arts += 1;
                     }
+
                     break;
 
-
                 case 3:
-                    if (!q3_answered) {
-                        if (q3 === "Making something with your hands (crafts, building, cooking)") {
-                            scores.manu += 1;
-                            scores.arts += 1;
-                            scores.constr += 1;
-                        } else if (q3 === "Expressing yourself creatively (music, writing, art)") {
-                            scores.arts += 1;
-                            scores.infoind += 1;
-                        } else if (q3 === "Playing or watching sports / staying active") {
-                            scores.food += 1;
-                            scores.arts += 1;
-                            scores.health += 1;
-                        } else if (q3 === "Solving puzzles or learning new concepts") {
-                            scores.professional += 1;
-                            scores.infoind += 1;
-                            scores.education += 1;
-                        } else if (q3 === "Spending time with friends / social activities") {
-                            scores.health += 1;
-                            scores.food += 1;
-                        } else { // Being outdoors / exploring nature
-                            scores.trans += 1;
-                            scores.agri += 1;
-                            scores.arts += 1;
-                        }
-                        q3_answered = true;
-                        answered += 1;
+                    if (answer === "Making something with your hands (crafts, building, cooking)") {
+                        scores.manu += 1;
+                        scores.arts += 1;
+                        scores.constr += 1;
+                    } else if (answer === "Expressing yourself creatively (music, writing, art)") {
+                        scores.arts += 1;
+                        scores.infoind += 1;
+                    } else if (answer === "Playing or watching sports / staying active") {
+                        scores.food += 1;
+                        scores.arts += 1;
+                        scores.health += 1;
+                    } else if (answer === "Solving puzzles or learning new concepts") {
+                        scores.professional += 1;
+                        scores.infoind += 1;
+                        scores.education += 1;
+                    } else if (answer === "Spending time with friends / social activities") {
+                        scores.health += 1;
+                        scores.food += 1;
+                    } else { // Being outdoors / exploring nature
+                        scores.trans += 1;
+                        scores.agri += 1;
+                        scores.arts += 1;
                     }
                     break;
 
                 case 4:
-                    if (!q4_answered) {
-                        if (q4 === "Watching shows or movies") {
-                            scores.arts += 1;
-                            scores.infoind += 1;
-                        } else if (q4 === "Expressing yourself creatively (music, writing, art)") {
-                            scores.education += 1;
-                            scores.infoind += 1;
-                            scores.professional += 1;
-                        } else if (q4 === "Hanging out with friends") {
-                            scores.health += 1;
-                            scores.food += 1;
-                        } else if (q4 === "Doing hands-on projects (crafts, cooking, building)") {
-                            scores.manu += 1;
-                            scores.arts += 1;
-                            scores.constr += 1;
-                        } else if (q4 === "Planning / organizing your week") {
-                            scores.admin += 1;
-                            scores.publicy += 1;
-                            scores.management += 1;
-                        } else { // Relaxing in nature / exercising
-                            scores.trans += 1;
-                            scores.agri += 1;
-                            scores.food += 1;
-                        }
-                        q4_answered = true;
-                        answered += 1;
+                    if (answer === "Watching shows or movies") {
+                        scores.arts += 1;
+                        scores.infoind += 1;
+                    } else if (answer === "Expressing yourself creatively (music, writing, art)") {
+                        scores.education += 1;
+                        scores.infoind += 1;
+                        scores.professional += 1;
+                    } else if (answer === "Hanging out with friends") {
+                        scores.health += 1;
+                        scores.food += 1;
+                    } else if (answer === "Doing hands-on projects (crafts, cooking, building)") {
+                        scores.manu += 1;
+                        scores.arts += 1;
+                        scores.constr += 1;
+                    } else if (answer === "Planning / organizing your week") {
+                        scores.admin += 1;
+                        scores.publicy += 1;
+                        scores.management += 1;
+                    } else { // Relaxing in nature / exercising
+                        scores.trans += 1;
+                        scores.agri += 1;
+                        scores.food += 1;
                     }
                     break;
 
                 case 5:
-                    if (!q5_answered) {
-                        if (q5 === "Attending a concert, art exhibit, or performance") {
-                            scores.arts += 1;
-                            scores.infoind += 1;
-                        } else if (q5 === "Hosting or attending a dinner / party") {
-                            scores.food += 1;
-                            scores.health += 1;
-                            scores.management += 1;
-                        } else if (q5 === "Working on a personal project or hobby") {
-                            scores.management += 1;
-                            scores.manu += 1;
-                            scores.arts += 1;
-                        } else if (q5 === "Going on a short trip or exploring your town") {
-                            scores.agri += 1;
-                            scores.arts += 1;
-                            scores.trans += 1;
-                        } else if (q5 === "Volunteering or helping a local cause") {
-                            scores.publicy += 1;
-                            scores.health += 1;
-                            scores.education += 1;
-                        } else { // Staying in and relaxing
-                            scores.uti += 1;
-                            scores.publicy += 1;
-                            scores.other += 1;
-                        }
-                        q5_answered = true;
-                        answered += 1;
+                    if (answer === "Attending a concert, art exhibit, or performance") {
+                        scores.arts += 1;
+                        scores.infoind += 1;
+                    } else if (answer === "Hosting or attending a dinner / party") {
+                        scores.food += 1;
+                        scores.health += 1;
+                        scores.management += 1;
+                    } else if (answer === "Working on a personal project or hobby") {
+                        scores.management += 1;
+                        scores.manu += 1;
+                        scores.arts += 1;
+                    } else if (answer === "Going on a short trip or exploring your town") {
+                        scores.agri += 1;
+                        scores.arts += 1;
+                        scores.trans += 1;
+                    } else if (answer === "Volunteering or helping a local cause") {
+                        scores.publicy += 1;
+                        scores.health += 1;
+                        scores.education += 1;
+                    } else { // Staying in and relaxing
+                        scores.uti += 1;
+                        scores.publicy += 1;
+                        scores.other += 1;
                     }
                     break;
                 case 6:
-                    if (!q6_answered) {
-                        if (q6SubmitButtonClicked) {
-                            if (q6 === "A busy office with clear tasks and schedules") {
-                                scores.finance += 1;
-                                scores.admin += 1;
-                                scores.publicy += 1;
-                            } else if (q6 === "A creative studio or workshop") {
-                                scores.arts += 1;
-                                scores.infoind += 1;
-                                scores.manu += 1;
-                            } else if (q6 === "Outdoors or in nature") {
-                                scores.agri += 1;
-                                scores.trans += 1;
-                                scores.constr += 1;
-                            } else if (q6 === "Flexible coworking spaces / cafes / changing environments") {
-                                scores.infoind += 1;
-                                scores.food += 1;
-                                scores.professional += 1;
-                            } else if (q6 === "A calm, quiet room with minimal interruptions") {
-                                scores.education += 1;
-                                scores.health += 1;
-                                scores.uti += 1;
-                            } else { // High-energy, social, hands-on environment
-                                scores.food += 1;
-                                scores.health += 1;
-                                scores.retail += 1;
-                            }
-
-                            q6_answered = true;
-                            answered += 1;
+                    if (q6SubmitButtonClicked) {
+                        if (answer === "A busy office with clear tasks and schedules") {
+                            scores.finance += 1;
+                            scores.admin += 1;
+                            scores.publicy += 1;
+                        } else if (answer === "A creative studio or workshop") {
+                            scores.arts += 1;
+                            scores.infoind += 1;
+                            scores.manu += 1;
+                        } else if (answer === "Outdoors or in nature") {
+                            scores.agri += 1;
+                            scores.trans += 1;
+                            scores.constr += 1;
+                        } else if (answer === "Flexible coworking spaces / cafes / changing environments") {
+                            scores.infoind += 1;
+                            scores.food += 1;
+                            scores.professional += 1;
+                        } else if (answer === "A calm, quiet room with minimal interruptions") {
+                            scores.education += 1;
+                            scores.health += 1;
+                            scores.uti += 1;
+                        } else { // High-energy, social, hands-on environment
+                            scores.food += 1;
+                            scores.health += 1;
+                            scores.retail += 1;
                         }
                     }
                     break;
                 case 7:
-                    if (!q7_answered) {
-                        if (q7SubmitButtonClicked) {
-                            if (q7 === "Follow a clear step-by-step plan") {
-                                scores.constr += 1;
-                                scores.uti += 1;
-                                scores.manu += 1;
-                            } else if (q7 === "Work independently and creatively") {
-                                scores.infoind += 1;
-                                scores.professional += 1;
-                                scores.arts += 1;
-                            } else if (q7 === "Collaborate and brainstorm with others") {
-                                scores.health += 1;
-                                scores.education += 1;
-                                scores.food += 1;
-                            } else if (q7 === "Jump in and figure things out as you go") {
-                                scores.arts += 1;
-                                scores.trans += 1;
-                                scores.retail += 1;
-                            } else if (q7 === "Focus on precision and details") {
-                                scores.admin += 1;
-                                scores.real_estate += 1;
-                                scores.finance += 1;
-                            } else { // Focus on people’s needs and feelings
-                                scores.other += 1;
-                                scores.education += 1;
-                                scores.health += 1;
-                            }
-                            q7_answered = true;
-                            answered += 1;
+                    if (q7SubmitButtonClicked) {
+                        if (answer === "Follow a clear step-by-step plan") {
+                            scores.constr += 1;
+                            scores.uti += 1;
+                            scores.manu += 1;
+                        } else if (answer === "Work independently and creatively") {
+                            scores.infoind += 1;
+                            scores.professional += 1;
+                            scores.arts += 1;
+                        } else if (answer === "Collaborate and brainstorm with others") {
+                            scores.health += 1;
+                            scores.education += 1;
+                            scores.food += 1;
+                        } else if (answer === "Jump in and figure things out as you go") {
+                            scores.arts += 1;
+                            scores.trans += 1;
+                            scores.retail += 1;
+                        } else if (answer === "Focus on precision and details") {
+                            scores.admin += 1;
+                            scores.real_estate += 1;
+                            scores.finance += 1;
+                        } else { // Focus on people’s needs and feelings
+                            scores.other += 1;
+                            scores.education += 1;
+                            scores.health += 1;
                         }
                     }
+
                     break;
                 case 8:
-                    if (!q8_answered) {
-                        if (q8SubmitButtonClicked) {
-                            if (q8 === "Fast, dynamic, and changing constantly") {
-                                scores.management += 1;
-                                scores.retail += 1;
-                                scores.arts += 1;
-                            } else if (q8 === "Steady but challenging") {
-                                scores.education += 1;
-                                scores.health += 1;
-                                scores.constr += 1;
-                            } else if (q8 === "Slow, deliberate, and structured") {
-                                scores.finance += 1;
-                                scores.uti += 1;
-                                scores.admin += 1;
-                            } else if (q8 === "Flexible, adaptable depending on the day") {
-                                scores.professional += 1;
-                                scores.real_estate += 1;
-                                scores.infoind += 1;
-                            } else if (q8 === "Energetic and social") {
-                                scores.arts += 1;
-                                scores.retail += 1;
-                                scores.food += 1;
-                            } else { // Calm and focused
-                                scores.uti += 1;
-                                scores.publicy += 1;
-                                scores.education += 1;
-                            }
-                            q8_answered = true;
-                            answered += 1;
+                    if (q8SubmitButtonClicked) {
+                        if (answer === "Fast, dynamic, and changing constantly") {
+                            scores.management += 1;
+                            scores.retail += 1;
+                            scores.arts += 1;
+                        } else if (answer === "Steady but challenging") {
+                            scores.education += 1;
+                            scores.health += 1;
+                            scores.constr += 1;
+                        } else if (answer === "Slow, deliberate, and structured") {
+                            scores.finance += 1;
+                            scores.uti += 1;
+                            scores.admin += 1;
+                        } else if (answer === "Flexible, adaptable depending on the day") {
+                            scores.professional += 1;
+                            scores.real_estate += 1;
+                            scores.infoind += 1;
+                        } else if (answer === "Energetic and social") {
+                            scores.arts += 1;
+                            scores.retail += 1;
+                            scores.food += 1;
+                        } else { // Calm and focused
+                            scores.uti += 1;
+                            scores.publicy += 1;
+                            scores.education += 1;
                         }
                     }
+
                     break;
                 case 9:
-                    if (!q9_answered) {
-                        if (q9SubmitButtonClicked) {
-                            if (q9 === "Completely independently") {
-                                scores.infoind += 1;
-                                scores.arts += 1;
-                                scores.professional += 1;
-                            } else if (q9 === "Mostly independently, occasional check-ins") {
-                                scores.real_estate += 1;
-                                scores.management += 1;
-                                scores.finance += 1;
-                            } else if (q9 === "In a team with shared responsibility") {
-                                scores.health += 1;
-                                scores.food += 1;
-                            } else if (q9 === "With clear instructions and supervision") {
-                                scores.constr += 1;
-                                scores.manu += 1;
-                                scores.uti += 1;
-                            } else if (q9 === "Rotating between teamwork and solo work") {
-                                scores.arts += 1;
-                                scores.retail += 1;
-                                scores.trans += 1;
-                            } else { // Being guided by a mentor or leader
-                                scores.education += 1;
-                                scores.health += 1;
-                                scores.publicy += 1;
-                            }
-                            q9_answered = true;
-                            answered += 1;
+                    if (q9SubmitButtonClicked) {
+                        if (answer === "Completely independently") {
+                            scores.infoind += 1;
+                            scores.arts += 1;
+                            scores.professional += 1;
+                        } else if (answer === "Mostly independently, occasional check-ins") {
+                            scores.real_estate += 1;
+                            scores.management += 1;
+                            scores.finance += 1;
+                        } else if (answer === "In a team with shared responsibility") {
+                            scores.health += 1;
+                            scores.food += 1;
+                        } else if (answer === "With clear instructions and supervision") {
+                            scores.constr += 1;
+                            scores.manu += 1;
+                            scores.uti += 1;
+                        } else if (answer === "Rotating between teamwork and solo work") {
+                            scores.arts += 1;
+                            scores.retail += 1;
+                            scores.trans += 1;
+                        } else { // Being guided by a mentor or leader
+                            scores.education += 1;
+                            scores.health += 1;
+                            scores.publicy += 1;
                         }
                     }
                     break;
                 case 10:
-                    if (!q10_answered) {
-                        if (q10SubmitButtonClicked) {
-                            if (q10 === "Early in the morning, when everything is calm") {
-                                scores.education += 1;
-                                scores.finance += 1;
-                                scores.uti += 1;
-                            } else if (q10 === "Late at night, when I’m inspired") {
-                                scores.arts += 1;
-                                scores.infoind += 1;
-                                scores.professional += 1;
-                            } else if (q10 === "In short bursts with lots of variety") {
-                                scores.food += 1;
-                                scores.retail += 1;
-                                scores.trans += 1;
-                            } else if (q10 === "When I’m actively moving or hands-on") {
-                                scores.constr += 1;
-                                scores.agri += 1;
-                                scores.manu += 1;
-                            } else if (q10 === "When collaborating with others") {
-                                scores.education += 1;
-                                scores.health += 1;
-                                scores.food += 1;
-                            } else { // When I can experiment and try new ideas
-                                scores.arts += 1;
-                                scores.professional += 1;
-                                scores.infoind += 1;
-                            }
-                            q10_answered = true;
-                            answered += 1;
+                    if (q10SubmitButtonClicked) {
+                        if (answer === "Early in the morning, when everything is calm") {
+                            scores.education += 1;
+                            scores.finance += 1;
+                            scores.uti += 1;
+                        } else if (answer === "Late at night, when I’m inspired") {
+                            scores.arts += 1;
+                            scores.infoind += 1;
+                            scores.professional += 1;
+                        } else if (answer === "In short bursts with lots of variety") {
+                            scores.food += 1;
+                            scores.retail += 1;
+                            scores.trans += 1;
+                        } else if (answer === "When I’m actively moving or hands-on") {
+                            scores.constr += 1;
+                            scores.agri += 1;
+                            scores.manu += 1;
+                        } else if (answer === "When collaborating with others") {
+                            scores.education += 1;
+                            scores.health += 1;
+                            scores.food += 1;
+                        } else { // When I can experiment and try new ideas
+                            scores.arts += 1;
+                            scores.professional += 1;
+                            scores.infoind += 1;
                         }
                     }
                     break;
                 case 11:
-                    if (!q11_answered) {
-                        if (q11SubmitButtonClicked) {
-                            if (q11 === "Spending time with close friends or family") {
-                                scores.education += 1;
-                                scores.health += 1;
-                                scores.food += 1;
-                            } else if (q11 === "Being alone reading, gaming, or watching media") {
-                                scores.publicy += 1;
-                                scores.infoind += 1;
-                                scores.professional += 1;
-                            } else if (q11 === "Going for a walk or doing something active") {
-                                scores.trans += 1;
-                                scores.agri += 1;
-                                scores.arts += 1;
-                            } else if (q11 === "Trying a new hobby or exploring something new") {
-                                scores.food += 1;
-                                scores.infoind += 1;
-                                scores.arts += 1;
-                            } else if (q11 === "Volunteering or helping someone") {
-                                scores.education += 1;
-                                scores.health += 1;
-                                scores.other += 1;
-                            } else { // Organizing or planning your space
-                                scores.admin += 1;
-                                scores.real_estate += 1;
-                                scores.manu += 1;
-                            }
-
-                            q11_answered = true;
-                            answered += 1;
-                            renderPage();
+                    if (q11SubmitButtonClicked) {
+                        if (answer === "Spending time with close friends or family") {
+                            scores.education += 1;
+                            scores.health += 1;
+                            scores.food += 1;
+                        } else if (answer === "Being alone reading, gaming, or watching media") {
+                            scores.publicy += 1;
+                            scores.infoind += 1;
+                            scores.professional += 1;
+                        } else if (answer === "Going for a walk or doing something active") {
+                            scores.trans += 1;
+                            scores.agri += 1;
+                            scores.arts += 1;
+                        } else if (answer === "Trying a new hobby or exploring something new") {
+                            scores.food += 1;
+                            scores.infoind += 1;
+                            scores.arts += 1;
+                        } else if (answer === "Volunteering or helping someone") {
+                            scores.education += 1;
+                            scores.health += 1;
+                            scores.other += 1;
+                        } else { // Organizing or planning your space
+                            scores.admin += 1;
+                            scores.real_estate += 1;
+                            scores.manu += 1;
                         }
+                        renderPage();
                     }
                     break;
                 case 12:
-                    if (!q12_answered) {
-                        if (q12SubmitButtonClicked) {
-                            if (q12 === "I thrive in large groups and enjoy meeting new people") {
-                                scores.arts += 1;
-                                scores.education += 1;
-                                scores.food += 1;
-                            } else if (q12 === "I prefer small groups of close friends") {
-                                scores.health += 1;
-                                scores.education += 1;
-                                scores.professional += 1;
-                            } else if (q12 === "I like being around people but also need breaks alone") {
-                                scores.real_estate += 1;
-                                scores.admin += 1;
-                                scores.arts += 1;
-                            } else if (q12 === "I mostly observe rather than actively participate") {
-                                scores.uti += 1;
-                                scores.infoind += 1;
-                                scores.admin += 1;
-                            } else if (q12 === "I avoid social gatherings whenever possible") {
-                                scores.infoind += 1;
-                                scores.uti += 1;
-                                scores.other += 1;
-                            } else { // I adapt easily to any size or type of group
-                                scores.trans += 1;
-                                scores.professional += 1;
-                                scores.food += 1;
-                            }
-                            q12_answered = true;
-                            answered += 1;
-                            renderPage();
-                        }
+                    if (answer === "I thrive in large groups and enjoy meeting new people") {
+                        scores.arts += 1;
+                        scores.education += 1;
+                        scores.food += 1;
+                    } else if (answer === "I prefer small groups of close friends") {
+                        scores.health += 1;
+                        scores.education += 1;
+                        scores.professional += 1;
+                    } else if (answer === "I like being around people but also need breaks alone") {
+                        scores.real_estate += 1;
+                        scores.admin += 1;
+                        scores.arts += 1;
+                    } else if (answer === "I mostly observe rather than actively participate") {
+                        scores.uti += 1;
+                        scores.infoind += 1;
+                        scores.admin += 1;
+                    } else if (answer === "I avoid social gatherings whenever possible") {
+                        scores.infoind += 1;
+                        scores.uti += 1;
+                        scores.other += 1;
+                    } else { // I adapt easily to any size or type of group
+                        scores.trans += 1;
+                        scores.professional += 1;
+                        scores.food += 1;
                     }
+                    renderPage();
+
                     break;
                 case 13:
-                    if (!q13_answered) {
-                        if (q13SubmitButtonClicked) {
-                            if (q13 === "I’m energized by activity and social interaction") {
-                                scores.arts += 1;
-                                scores.retail += 1;
-                                scores.food += 1;
-                            } else if (q13 === "I manage energy with planned breaks") {
-                                scores.health += 1;
-                                scores.education += 1;
-                                scores.professional += 1;
-                            } else if (q13 === "I focus best when calm and consistent") {
-                                scores.uti += 1;
-                                scores.publicy += 1;
-                                scores.finance += 1;
-                            } else if (q13 === "I like alternating high-energy bursts with downtime") {
-                                scores.arts += 1;
-                                scores.infoind += 1;
-                                scores.food += 1;
-                            } else if (q13 === "I prefer low-energy, predictable routines") {
-                                scores.admin += 1;
-                                scores.real_estate += 1;
-                                scores.manu += 1;
-                            } else { // I adapt my energy to whatever the day demands
-                                scores.constr += 1;
-                                scores.professional += 1;
-                                scores.trans += 1;
-                            }
-                            q13_answered = true;
-                            answered += 1;
-                            renderPage();
-                        }
+                    if (answer === "I’m energized by activity and social interaction") {
+                        scores.arts += 1;
+                        scores.retail += 1;
+                        scores.food += 1;
+                    } else if (answer === "I manage energy with planned breaks") {
+                        scores.health += 1;
+                        scores.education += 1;
+                        scores.professional += 1;
+                    } else if (answer === "I focus best when calm and consistent") {
+                        scores.uti += 1;
+                        scores.publicy += 1;
+                        scores.finance += 1;
+                    } else if (answer === "I like alternating high-energy bursts with downtime") {
+                        scores.arts += 1;
+                        scores.infoind += 1;
+                        scores.food += 1;
+                    } else if (answer === "I prefer low-energy, predictable routines") {
+                        scores.admin += 1;
+                        scores.real_estate += 1;
+                        scores.manu += 1;
+                    } else { // I adapt my energy to whatever the day demands
+                        scores.constr += 1;
+                        scores.professional += 1;
+                        scores.trans += 1;
                     }
+                    renderPage();
+
                     break;
                 case 14:
-                    if (!q14_answered) {
-                        if (q14SubmitButtonClicked) {
-                            if (q14 === "I dive in headfirst and love variety") {
-                                scores.arts += 1;
-                                scores.trans += 1;
-                                scores.food += 1;
-                            } else if (q14 === "I prefer to try a few new things at a time") {
-                                scores.infoind += 1;
-                                scores.arts += 1;
-                                scores.professional += 1;
-                            } else if (q14 === "I stick to what I know") {
-                                scores.uti += 1;
-                                scores.publicy += 1;
-                                scores.admin += 1;
-                            } else if (q14 === "I plan new experiences carefully before doing them") {
-                                scores.retail += 1;
-                                scores.arts += 1;
-                                scores.finance += 1;
-                            } else if (q14 === "I like spontaneous adventures but also enjoy downtime") {
-                                scores.retail += 1;
-                                scores.real_estate += 1;
-                                scores.arts += 1;
-                            } else { // I mostly observe new experiences rather than participate
-                                scores.health += 1;
-                                scores.other += 1;
-                                scores.education += 1;
-                            }
-
-                            q14_answered = true;
-                            answered += 1;
-
-                            renderPage();
-                        }
+                    if (answer === "I dive in headfirst and love variety") {
+                        scores.arts += 1;
+                        scores.trans += 1;
+                        scores.food += 1;
+                    } else if (answer === "I prefer to try a few new things at a time") {
+                        scores.infoind += 1;
+                        scores.arts += 1;
+                        scores.professional += 1;
+                    } else if (answer === "I stick to what I know") {
+                        scores.uti += 1;
+                        scores.publicy += 1;
+                        scores.admin += 1;
+                    } else if (answer === "I plan new experiences carefully before doing them") {
+                        scores.retail += 1;
+                        scores.arts += 1;
+                        scores.finance += 1;
+                    } else if (answer === "I like spontaneous adventures but also enjoy downtime") {
+                        scores.retail += 1;
+                        scores.real_estate += 1;
+                        scores.arts += 1;
+                    } else { // I mostly observe new experiences rather than participate
+                        scores.health += 1;
+                        scores.other += 1;
+                        scores.education += 1;
                     }
+                    renderPage();
+
                     break;
                 case 15:
-                    if (!q15_answered) {
-                        if (q15SubmitButtonClicked) {
-                            if (q15 === "Analyze the data and look for patterns") {
-                                scores.finance += 1;
-                                scores.professional += 1;
-                                scores.infoind += 1;
-                            } else if (q15 === "Brainstorm creative solutions, even unusual ones") {
-                                scores.infoind += 1;
-                                scores.arts += 1;
-                                scores.professional += 1;
-                            } else if (q15 === "Ask others for input and collaborate") {
-                                scores.health += 1;
-                                scores.food += 1;
-                                scores.education += 1;
-                            } else if (q15 === "Tackle it hands-on and learn by doing") {
-                                scores.uti += 1;
-                                scores.constr += 1;
-                                scores.manu += 1;
-                            } else if (q15 === "Follow step-by-step instructions carefully") {
-                                scores.trans += 1;
-                                scores.publicy += 1;
-                                scores.admin += 1;
-                            } else { // Take time to observe and reflect before acting
-                                scores.health += 1;
-                                scores.professional += 1;
-                                scores.education += 1;
-                            }
-                            q15_answered = true;
-                            answered += 1;
-                            renderPage();
-                        }
+                    if (answer === "Analyze the data and look for patterns") {
+                        scores.finance += 1;
+                        scores.professional += 1;
+                        scores.infoind += 1;
+                    } else if (answer === "Brainstorm creative solutions, even unusual ones") {
+                        scores.infoind += 1;
+                        scores.arts += 1;
+                        scores.professional += 1;
+                    } else if (answer === "Ask others for input and collaborate") {
+                        scores.health += 1;
+                        scores.food += 1;
+                        scores.education += 1;
+                    } else if (answer === "Tackle it hands-on and learn by doing") {
+                        scores.uti += 1;
+                        scores.constr += 1;
+                        scores.manu += 1;
+                    } else if (answer === "Follow step-by-step instructions carefully") {
+                        scores.trans += 1;
+                        scores.publicy += 1;
+                        scores.admin += 1;
+                    } else { // Take time to observe and reflect before acting
+                        scores.health += 1;
+                        scores.professional += 1;
+                        scores.education += 1;
                     }
+                    renderPage();
+
                     break;
                 case 16:
-                    if (!q16_answered) {
-                        if (q16SubmitButtonClicked) {
-                            if (q16 === "Failing and looking incompetent") {
-                                scores.finance += 1;
-                                scores.professional += 1;
-                                scores.publicy += 1;
-                            } else if (q16 === "Not knowing where to start") {
-                                scores.admin += 1;
-                                scores.education += 1;
-                                scores.health += 1;
-                            } else if (q16 === "That it might be boring or repetitive") {
-                                scores.arts += 1;
-                                scores.infoind += 1;
-                                scores.food += 1;
-                            } else if (q16 === "It will be physically demanding") {
-                                scores.trans += 1;
-                                scores.constr += 1;
-                                scores.manu += 1;
-                            } else if (q16 === "Feeling socially awkward or judged") {
-                                scores.health += 1;
-                                scores.education += 1;
-                                scores.food += 1;
-                            } else { // Making a mistake that affects others
-                                scores.health += 1;
-                                scores.professional += 1;
-                                scores.education += 1;
-                            }
-                            q16_answered = true;
-                            answered += 1;
-                            renderPage();
-                        }
+                    if (answer === "Failing and looking incompetent") {
+                        scores.finance += 1;
+                        scores.professional += 1;
+                        scores.publicy += 1;
+                    } else if (answer === "Not knowing where to start") {
+                        scores.admin += 1;
+                        scores.education += 1;
+                        scores.health += 1;
+                    } else if (answer === "That it might be boring or repetitive") {
+                        scores.arts += 1;
+                        scores.infoind += 1;
+                        scores.food += 1;
+                    } else if (answer === "It will be physically demanding") {
+                        scores.trans += 1;
+                        scores.constr += 1;
+                        scores.manu += 1;
+                    } else if (answer === "Feeling socially awkward or judged") {
+                        scores.health += 1;
+                        scores.education += 1;
+                        scores.food += 1;
+                    } else { // Making a mistake that affects others
+                        scores.health += 1;
+                        scores.professional += 1;
+                        scores.education += 1;
                     }
+                    renderPage();
+
                     break;
                 case 17:
-                    if (!q17_answered) {
-                        if (q17SubmitButtonClicked) { // replace with your actual button click logic
-                            if (q17 === "Solving a problem or overcoming a challenge") {
-                                scores.finance += 1;
-                                scores.professional += 1;
-                                scores.uti += 1;
-                            } else if (q17 === "Learning something new and expanding skills") {
-                                scores.infoind += 1;
-                                scores.education += 1;
-                                scores.professional += 1;
-                            } else if (q17 === "Being creative and trying something original") {
-                                scores.arts += 1;
-                                scores.infoind += 1;
-                                scores.professional += 1;
-                            } else if (q17 === "Meeting or working with new people") {
-                                scores.health += 1;
-                                scores.education += 1;
-                                scores.food += 1;
-                            } else if (q17 === "Getting hands-on experience") {
-                                scores.manu += 1;
-                                scores.arts += 1;
-                                scores.constr += 1;
-                            } else { // Exploring the unknown or unexpected
-                                scores.health += 1;
-                                scores.professional += 1;
-                                scores.education += 1;
-                            }
-                            q17_answered = true;
-                            answered += 1;
-                            renderPage();
-                        }
+                    if (answer === "Solving a problem or overcoming a challenge") {
+                        scores.finance += 1;
+                        scores.professional += 1;
+                        scores.uti += 1;
+                    } else if (answer === "Learning something new and expanding skills") {
+                        scores.infoind += 1;
+                        scores.education += 1;
+                        scores.professional += 1;
+                    } else if (answer === "Being creative and trying something original") {
+                        scores.arts += 1;
+                        scores.infoind += 1;
+                        scores.professional += 1;
+                    } else if (answer === "Meeting or working with new people") {
+                        scores.health += 1;
+                        scores.education += 1;
+                        scores.food += 1;
+                    } else if (answer === "Getting hands-on experience") {
+                        scores.manu += 1;
+                        scores.arts += 1;
+                        scores.constr += 1;
+                    } else { // Exploring the unknown or unexpected
+                        scores.health += 1;
+                        scores.professional += 1;
+                        scores.education += 1;
                     }
+                    renderPage();
+
                     break;
                 case 18:
-                    if (!q18_answered) {
-                        if (q18SubmitButtonClicked) { // replace with your actual button click logic
-                            if (q18 === "Making a positive difference in other people’s lives") {
-                                scores.health += 1;
-                                scores.education += 1;
-                                scores.food += 1;
-                            } else if (q18 === "Achieving financial success") {
-                                scores.finance += 1;
-                                scores.real_estate += 1;
-                                scores.management += 1;
-                            } else if (q18 === "Gaining recognition or fame") {
-                                scores.arts += 1;
-                                scores.infoind += 1;
-                                scores.management += 1;
-                            } else if (q18 === "Creating stability for yourself and loved ones") {
-                                scores.publicy += 1;
-                                scores.admin += 1;
-                                scores.uti += 1;
-                            } else if (q18 === "Exploring new ideas and creative possibilities") {
-                                scores.arts += 1;
-                                scores.infoind += 1;
-                                scores.professional += 1;
-                            } else { // Building a family or close personal relationships alongside work
-                                scores.health += 1;
-                                scores.food += 1;
-                                scores.education += 1;
-                            }
-                            q18_answered = true;
-                            answered += 1;
-                            renderPage();
-                        }
+                    if (answer === "Making a positive difference in other people’s lives") {
+                        scores.health += 1;
+                        scores.education += 1;
+                        scores.food += 1;
+                    } else if (answer === "Achieving financial success") {
+                        scores.finance += 1;
+                        scores.real_estate += 1;
+                        scores.management += 1;
+                    } else if (answer === "Gaining recognition or fame") {
+                        scores.arts += 1;
+                        scores.infoind += 1;
+                        scores.management += 1;
+                    } else if (answer === "Creating stability for yourself and loved ones") {
+                        scores.publicy += 1;
+                        scores.admin += 1;
+                        scores.uti += 1;
+                    } else if (answer === "Exploring new ideas and creative possibilities") {
+                        scores.arts += 1;
+                        scores.infoind += 1;
+                        scores.professional += 1;
+                    } else { // Building a family or close personal relationships alongside work
+                        scores.health += 1;
+                        scores.food += 1;
+                        scores.education += 1;
                     }
+                    renderPage();
+
                     break;
                 case 19:
-                    if (!q19_answered) {
-                        if (q19SubmitButtonClicked) { // replace with your actual button click logic
-                            if (q19 === "Helping or mentoring others") {
-                                scores.health += 1;
-                                scores.education += 1;
-                                scores.food += 1;
-                            } else if (q19 === "Earning wealth or material success") {
-                                scores.arts += 1;
-                                scores.finance += 1;
-                                scores.professional += 1;
-                            } else if (q19 === "Becoming well-known or influential") {
-                                scores.arts += 1;
-                                scores.infoind += 1;
-                                scores.management += 1;
-                            } else if (q19 === "Feeling secure and stable in your life") {
-                                scores.publicy += 1;
-                                scores.admin += 1;
-                                scores.uti += 1;
-                            } else if (q19 === "Making something new, original, or impactful") {
-                                scores.arts += 1;
-                                scores.infoind += 1;
-                                scores.professional += 1;
-                            } else { // Building strong relationships or a family
-                                scores.health += 1;
-                                scores.food += 1;
-                                scores.education += 1;
-                            }
-                            q19_answered = true;
-                            answered += 1;
-                            renderPage();
-                        }
+                    if (answer === "Helping or mentoring others") {
+                        scores.health += 1;
+                        scores.education += 1;
+                        scores.food += 1;
+                    } else if (answer === "Earning wealth or material success") {
+                        scores.arts += 1;
+                        scores.finance += 1;
+                        scores.professional += 1;
+                    } else if (answer === "Becoming well-known or influential") {
+                        scores.arts += 1;
+                        scores.infoind += 1;
+                        scores.management += 1;
+                    } else if (answer === "Feeling secure and stable in your life") {
+                        scores.publicy += 1;
+                        scores.admin += 1;
+                        scores.uti += 1;
+                    } else if (answer === "Making something new, original, or impactful") {
+                        scores.arts += 1;
+                        scores.infoind += 1;
+                        scores.professional += 1;
+                    } else { // Building strong relationships or a family
+                        scores.health += 1;
+                        scores.food += 1;
+                        scores.education += 1;
                     }
+                    renderPage();
+
                     break;
                 case 20:
-                    if (!q20_answered) {
-                        if (q20SubmitButtonClicked) {
-                            if (q20 === "Leading a team, making big decisions, and being responsible for overall success") {
-                                scores.finance += 1;
-                                scores.management += 1;
-                                scores.admin += 1;
-                            } else if (q20 === "Creating ideas, content, or experiences that others engage with") {
-                                scores.arts += 1;
-                                scores.infoind += 1;
-                                scores.food += 1;
-                            } else if (q20 === "Helping, supporting, or guiding people in meaningful ways") {
-                                scores.arts += 1;
-                                scores.infoind += 1;
-                                scores.management += 1;
-                            } else if (q20 === "Building, fixing, or working with physical systems and environments") {
-                                scores.constr += 1;
-                                scores.manu += 1;
-                                scores.uti += 1;
-                            } else if (q20 === "Organizing operations, keeping things running smoothly, and handling logistics") {
-                                scores.management += 1;
-                                scores.retail += 1;
-                                scores.admin += 1;
-                            } else { // Working independently, taking risks, or pursuing opportunities for personal gain
-                                scores.real_estate += 1;
-                                scores.professional += 1;
-                                scores.agri += 1;
-                            }
-                            q20_answered = true;
-                            answered += 1;
-                            renderPage();
-                        }
+                    if (answer === "Leading a team, making big decisions, and being responsible for overall success") {
+                        scores.finance += 1;
+                        scores.management += 1;
+                        scores.admin += 1;
+                    } else if (answer === "Creating ideas, content, or experiences that others engage with") {
+                        scores.arts += 1;
+                        scores.infoind += 1;
+                        scores.food += 1;
+                    } else if (answer === "Helping, supporting, or guiding people in meaningful ways") {
+                        scores.arts += 1;
+                        scores.infoind += 1;
+                        scores.management += 1;
+                    } else if (answer === "Building, fixing, or working with physical systems and environments") {
+                        scores.constr += 1;
+                        scores.manu += 1;
+                        scores.uti += 1;
+                    } else if (answer === "Organizing operations, keeping things running smoothly, and handling logistics") {
+                        scores.management += 1;
+                        scores.retail += 1;
+                        scores.admin += 1;
+                    } else { // Working independently, taking risks, or pursuing opportunities for personal gain
+                        scores.real_estate += 1;
+                        scores.professional += 1;
+                        scores.agri += 1;
                     }
+                    renderPage();
+
+
                     break;
                 default:
                     console.error("Invalid question number: " + n);
             }
-
         }
-
-
-
 
 
         let startedQuiz = false;
@@ -1454,8 +1361,9 @@
                 button.className = 'option-btn';
                 button.type = 'button';
                 button.textContent = option;
-                button.addEventListener('click', answerQuestion);
-                optionsGrid.appendChild(button);
+                button.addEventListener('click', function () { });
+                submitQuestion(currentQuestionIndex + 1, this.textContent);
+                answer.Question();
             });
         }
 
@@ -1539,203 +1447,151 @@
 
             // Match category to recommendation
             let recommendation = "";
-
-            if (highestCategory === "Agriculture, Forestry, Fishing and Hunting") {
+            console.log("Scores:", scores);
+            console.log("Highest category:", highestCategory);
+            if (highestCategory === "agri") {
                 recommendation = `
             <p>You might enjoy a job in the agriculture industry. This industry is responsible for producing the food, raw materials, and natural resources that literally keep the world running every day.</p>
             <p>Here are a few career options in this industry →</p>
-            <ul>
                 <li><a href="https://www.ontario.ca/page/forestry-careers" target="_blank">Go to Google</a></li>
                 <li><a href="https://www.workforce.ca/the-ultimate-guide-to-oil-jobs-in-canada/" target="_blank">Go to Google</a></li>
-            </ul>
             <p>This field isn’t just farming — it includes environmental scientists, forestry managers, and petroleum engineers working on massive, high-impact projects. If you like the idea of working outdoors, managing land, or being part of industries that power entire countries, this space has way more range than people expect.</p>
             `;
             }
-            else if (highestCategory === "Utilities") {
+            else if (highestCategory === "uti") {
                 recommendation = `
-                <p>You might enjoy a job in the agriculture industry. This industry is responsible for producing the food, raw materials, and natural resources that literally keep the world running every day.</p>
-                <p>Behind the scenes, there are engineers, grid operators, sustainability specialists, and infrastructure planners making sure entire cities function smoothly. It’s a mix of stability and innovation, especially as the world shifts toward renewable energy and smarter systems.</p>
-                <p>Here are a few career options in this industry →</p>
-                <ul>
-                <li><a href="https://www.gojobs.gov.on.ca/" target="_blank">Go to Google</a><li>
-                <li><a href="https://www.indeed.com/career-advice/finding-a-job/jobs-in-utilities-industry" target="_blank">Go to Google</a><li>
-                </ul> 
+                <p>You might enjoy a job in the utilities industry. This industry delivers essential services— electricity, natural gas, water, and wastewater management —that keep homes, businesses, and infrastructure running reliably every day. Behind the scenes, there are engineers, grid operators, sustainability specialists, and infrastructure planners making sure entire cities function smoothly. It’s a mix of stability and innovation, especially as the world shifts toward renewable energy and smarter systems. Here are sites to consult about this →</p>
+                <li><a href="https://www.gojobs.gov.on.ca/" target="_blank">Go to Google</a></li>
+                <li><a href="https://www.indeed.com/career-advice/finding-a-job/jobs-in-utilities-industry" target="_blank">Go to Google</a></li>
             `;
             }
-            else if (highestCategory === "Construction") {
+            else if (highestCategory === "constr") {
                 recommendation = `
-            </ul> 
             <p>You might enjoy a job in the construction industry. This industry provides essential services like electricity, water, and natural gas that every home, school, and business depends on.</p>
             <p>This isn’t just manual labor —there are project managers running multi-million dollar builds, architects designing skylines, and site supervisors leading teams. If you like seeing real, tangible results from your work, construction gives you that in a way few industries can.</p>
             <p>Here are a few career options in this industry →</p>
-            <li><a href="https://ca.indeed.com/Construction-jobs-in-Ontario?vjk=277f6d644d1452bb" target="_blank">Go to Google</a><li>
-            </ul>  
+            <li><a href="https://ca.indeed.com/Construction-jobs-in-Ontario?vjk=277f6d644d1452bb" target="_blank">Go to Google</a></li>  
             `;
             }
-            else if (highestCategory === "Manufacturing") {
+            else if (highestCategory === "manu") {
                 recommendation = `
-            </ul> 
             <p>You might enjoy a job in the manufacturing industry. This industry produces the goods and products people use daily, from cars and electronics to clothing and machinery.</p>
             <p>Modern manufacturing includes robotics technicians, product designers, and systems engineers working with advanced technology. It’s a space where creativity meets precision, especially with automation and innovation changing how things are made.</p>
             <p>Here are a few career options in this industry →</p>
-            <li><a href="https://www.gojobs.gov.on.ca/" target="_blank">Go to Google</a><li>
-            </ul>  
+            <li><a href="https://www.gojobs.gov.on.ca/" target="_blank">Go to Google</a></li> 
             `;
             }
-            else if (highestCategory === "Retail and Wholesale Trade") {
-                recommendation = "Finance careers (accounting, banking, economics)";
-                recommendation = `
-            </ul> 
-            <p>Wholesale trade /+ Retail trade
-            You might enjoy a job in the wholesale or retail trade industry. This industry connects products to people, managing how goods are bought, sold, and distributed at every level.
-            Here are sites to consult about this →
-            Retail and wholesale trade managers Ontario - Search - Job Bank
-            Discover 100 Wholesale Trade Jobs and Work Opportunities in Ontario | Indeed
-            Beyond store jobs, there are buyers who decide what trends hit shelves, brand managers shaping entire companies, and logistics leads controlling global supply chains. If you’re interested in business, trends, or entrepreneurship, this industry can take you far.
-             →</p>
-            <li><a href="https://nl.jobbank.gc.ca/jobsearch/jobsearch?d=500&fn21=60020&fprov=ON" target="_blank">Go to Google</a><li>
-            <li><a href="https://ca.indeed.com/q-wholesale-trade-l-ontario-jobs.html" target="_blank">Go to Google</a><li>
-            </ul>  
-            `;
-            }
-            else if (highestCategory === "Transportation and Warehousing") {
-                recommendation = `
-            </ul> 
-            <p>You might enjoy a job in the manufacturing industry. This industry produces the goods and products people use daily, from cars and electronics to clothing and machinery.</p>
-            <p>Modern manufacturing includes robotics technicians, product designers, and systems engineers working with advanced technology. It’s a space where creativity meets precision, especially with automation and innovation changing how things are made.</p>
-            <p>Here are a few career options in this industry →</p>
-            <li><a href="https://ca.indeed.com/jobs?q=culture&l=Canada%2C+ontario&from=searchOnDesktopSerp&cf-turnstile-response=0.3nS7N6HaAosjzFH7mUL7YyZxw0vcwUoVQIca5uoxbXb497e0d3w7Xy26JnhOdGPu40wVesHzAlYxDmS23xGz6VfOXObdhLNylqt0cSnM2uWj4rEjeuv0E4aQ6uD_D-s8DLJScFOd-prexYOjA5OTQRqhuG4pZApRF3_gWSuMOVgZjKRDGtXbXDnimvBJ5Pa7-qE7hx-9AZ-AA-TCnyu9J6XSbnCvcdehtn1IBJejDWGiWqfpwKncrPnEv401ldL_bKnuyZHqo9xjAsMkJeD3VD4imSuyl06HPaB2kdD-UT7oPqcCjkke3QS1P1O2LrV0-Ba0f4Iac-nQEb-rO9uyjAtKCU0ONzsaw6omWQmQcRIPnHSC8PP25j2G9to0aAyxMGAd7w-RHLPi5RY1yBi8i6X8wN_RthT6SMpLnuFAgc6WCz6YDPzSda0-Az148OD5jFmzjsbG3hN4dbATjtUFICnzJTWdpELGZlgPRFltcVPOIGqZbrCX87giPbTPecG8FtyOff9Us-jYEYmlBQ5ZUD299B3rCas0tYEAHmzY6vy23ZDWyp-es9icVFJhzvvP5eBtSpN4LI6TArl6LK2r2IIU4K6LrQFtICRvGWIfRs2PCD90-slJYrGyBEEPtPXmwms8kpNa6WFUH2H47T-eHTpOzOLclQOVp6sOR7Bi_xw01tNkZq-S0OglmG1ojwsQBuLXJXa4KvESHG-ISKlhWnXjZ-Wue071F4ucvFLPGBj_m4oy-OPtTx9YDu1t_BZtnDOUTAjTx04z3eVhMceZi8N7EVhwODXMB6tWgEc-WGrqYj67tclIIsyaPoIUAsXhPvBkc3LdOdmbZUA9Go_8SSr5TEuyo61XpSqaFcBiPfNCIhA7vuMMUaVNFpG1pgNLqQe_0abcR3U3u-wazLKLj3H3Toc9w2Sakg2AKdInQPjj2SUJBtUR0vlV3DffGLYO.lTkcPxld3GQv0OsUf6SDkQ.16edc3d8ff4fc47e4145bbf420e3d9a86a0bbd0d4228ad0aaf2d4e7d9b26eaec&vjk=5f014aac8f2d38d5" target="_blank">Go to Google</a><li>
-            <li><a href="https://www.gojobs.gov.on.ca/" target="_blank">Go to Google</a><li>
-            </ul>  
-            `;
-            }
-            else if (highestCategory === "Information and Cultural Industries") {
+            else if (highestCategory === "retail") {
                 recommendation = ` 
-            </ul> 
+            <p>You might enjoy a job in the wholesale or retail trade industry! This industry connects products to people, managing how goods are bought, sold, and distributed at every level. Beyond store jobs, there are buyers who decide what trends hit shelves, brand managers shaping entire companies, and logistics leads controlling global supply chains. If you’re interested in business, trends, or entrepreneurship, this industry can take you far. Here are a few career options in this industry →</p>
+            <li><a href="https://nl.jobbank.gc.ca/jobsearch/jobsearch?d=500&fn21=60020&fprov=ON" target="_blank">Go to Google</a></li>
+            <li><a href="https://ca.indeed.com/q-wholesale-trade-l-ontario-jobs.html" target="_blank">Go to Google</a></li> 
+            `;
+            }
+            else if (highestCategory === "trans") {
+                recommendation = ` 
+            <p>You might enjoy a job in the transportation and warehousing industry. This industry moves goods and people across cities, countries, and the world. This field includes logistics coordinators, supply chain analysts, and operations managers who keep global systems running smoothly. With e-commerce and international trade growing fast, these roles are more important —and more interesting— than ever. Here are a few career options in this industry →</p>
+            <li><a href="https://www.gojobs.gov.on.ca/" target="_blank">Go to Google</a></li>
+            `;
+            }
+            else if (highestCategory === "infoind") {
+                recommendation = `  
             <p>You might enjoy a job in the information and cultural industry. This industry creates and shares media, technology, and content that shape how we communicate and understand the world. Here are sites to consult about this.</p>
             <p>From film producers and game designers to digital content strategists and journalists, this space is full of creative and tech-driven careers. If you’ve ever wanted to influence culture, tell stories, or build platforms people use every day, this is where that happens.</p>
             <p>Here are a few career options in this industry →</p>
-            <li><a href="https://www.gojobs.gov.on.ca/" target="_blank">Go to Google</a><li>
-            </ul>  
+            <li><a href="https://www.gojobs.gov.on.ca/" target="_blank">Go to Google</a></li>  
             `;
             }
-            else if (highestCategory === "Finance and Insurance") {
-                recommendation = ` 
-            </ul> 
+            else if (highestCategory === "finance") {
+                recommendation = `  
             <p>You might enjoy a job in the finance and insurance industry. This industry manages money, investments, and risk for individuals, businesses, and entire economies. Here are sites to consult about this.</p>
             <p>There are investment analysts, financial advisors, venture capital associates, and risk specialists making huge decisions behind the scenes. If you like strategy, numbers, and high-stakes thinking, this field can lead to some of the most influential roles out there.</p>
             <p>Here are a few career options in this industry →</p>
-            <li><a href="https://www.careeraddict.com/finance-degree-careers" target="_blank">Go to Google</a><li>
-            <li><a href="https://ca.indeed.com/career-advice/finding-a-job/ideas-for-job" target="_blank">Go to Google</a><li>
-            </ul>  
+            <li><a href="https://www.careeraddict.com/finance-degree-careers" target="_blank">Go to Google</a></li>
+            <li><a href="https://ca.indeed.com/career-advice/finding-a-job/ideas-for-job" target="_blank">Go to Google</a></li>  
             `;
             }
-            else if (highestCategory === "Real Estate and Rental and Leasing") {
+            else if (highestCategory === "real_estate") {
                 recommendation = ` 
-            </ul> 
             <p>You might enjoy a job in the real estate and rental and leasing industry. This industry focuses on buying, selling, and managing property and land. Here are sites to consult about this.</p>
             <p>It’s not just agents — there are property developers, real estate investors, and urban planners shaping entire communities. If you like business, negotiation, or long-term strategy, real estate can be both creative and financially rewarding.</p>
             <p>Here are a few career options in this industry →</p>
-            <li><a href="https://www.indeed.com/career-advice/finding-a-job/types-of-real-estate-jobs" target="_blank">Go to Google</a><li>
-            <li><a href="https://cbgist.com/career/15-high-paying-real-estate-job-opportunities-in-canada/" target="_blank">Go to Google</a><li>
-            </ul>  
+            <li><a href="https://www.indeed.com/career-advice/finding-a-job/types-of-real-estate-jobs" target="_blank">Go to Google</a></li>
+            <li><a href="https://cbgist.com/career/15-high-paying-real-estate-job-opportunities-in-canada/" target="_blank">Go to Google</a></li> 
             `;
             }
-            else if (highestCategory === "Professional, Scientific and Technical Services") {
-                recommendation = ` 
-            </ul> 
+            else if (highestCategory === "professional") {
+                recommendation = `  
             <p>You might enjoy a job in the professional, scientific, and technical services industry. This industry provides specialized expertise in areas like science, law, engineering, and technology. Here are sites to consult about this.</p>
             <p>This includes consultants, software developers, researchers, and engineers solving complex real-world problems. It’s one of the most flexible industries, where deep knowledge can turn into high-impact, high-paying careers.</p>
             <p>Here are a few career options in this industry →</p>
-            <li><a href="https://www.mynextmove.org/find/browse?c=54" target="_blank">Go to Google</a><li>
-            </ul>  
+            <li><a href="https://www.mynextmove.org/find/browse?c=54" target="_blank">Go to Google</a></li>  
             `;
             }
-            else if (highestCategory === "Management of Companies and Enterprises") {
+            else if (highestCategory === "management") {
                 recommendation = ` 
-            </ul> 
             <p>You might enjoy a job in the management industry. This industry focuses on leading organizations, making decisions, and guiding businesses toward growth and success. Here are sites to consult about this.</p>
             <p>These are roles like executives, operations directors, and strategy leads who shape the direction of entire companies. If you like leadership, big-picture thinking, and decision-making, this is where you move from participating to leading.</p>
             <p>Here are a few career options in this industry →</p>
-            <li><a href="https://interviewguy.com/jobs-for-leadership-and-management/" target="_blank">Go to Google</a><li>
-            </ul>  
+            <li><a href="https://interviewguy.com/jobs-for-leadership-and-management/" target="_blank">Go to Google</a></li>  
             `;
             }
-            else if (highestCategory === "Administrative and Support, Waste Management and Remediation Services") { not done
-                recommendation = ` 
-            </ul> 
-            <p>You might enjoy a job in the manufacturing industry. This industry produces the goods and products people use daily, from cars and electronics to clothing and machinery.</p>
-            <p>Modern manufacturing includes robotics technicians, product designers, and systems engineers working with advanced technology. It’s a space where creativity meets precision, especially with automation and innovation changing how things are made.</p>
+            else if (highestCategory === "admin") {
+                recommendation = `  
+            <p>You might enjoy a job in the administration or waste management services industry. This industry supports organizations and maintains systems that keep environments clean, organized, and functional. Here are sites to consult about this.</p>
+            <p>There are operations coordinators, facility managers, and environmental specialists working on sustainability and efficiency. It’s a space that quietly keeps everything else running — and is becoming more important with environmental challenges.</p>
             <p>Here are a few career options in this industry →</p>
-            <li><a href="https://www.gojobs.gov.on.ca/" target="_blank">Go to Google</a><li>
-            </ul>  
+            <li><a href="https://www.gojobs.gov.on.ca/" target="_blank">Go to Google</a></li>  
             `;
             }
-            else if (highestCategory === "Educational Services") {
+            else if (highestCategory === "education") {
                 recommendation = ` 
-            </ul> 
             <p>You might enjoy a job in the educational industry. This industry focuses on teaching, training, and helping people develop knowledge and skills.</p>
             <p>Beyond teaching, there are curriculum designers, academic advisors, and education consultants shaping how people learn. If you like helping others grow or building systems that support learning, there are more paths here than most people realize.</p>
             <p>Here are a few career options in this industry →</p>
-            <li><a href="https://www.devlinpeck.com/content/non-teaching-education-jobs" target="_blank">Go to Google</a><li>
-            </ul>  
+            <li><a href="https://www.devlinpeck.com/content/non-teaching-education-jobs" target="_blank">Go to Google</a></li> 
             `;
             }
-            else if (highestCategory === "Health Care and Social Assistance") {
+            else if (highestCategory === "health") {
                 recommendation = ` 
-            </ul> 
             <p>You might enjoy a job in the healthcare and social assistance industry. This industry provides medical care, support, and services that improve people’s health and well-being.</p>
             <p>This includes not just doctors and nurses, but art therapists or marriage councellors, social workers, and healthcare administrators. If you want work that directly impacts people’s lives, this is one of the most meaningful paths you can take.</p>
             <p>Here are a few career options in this industry →</p>
-            <li><a href="https://www.gojobs.gov.on.ca/" target="_blank">Go to Google</a><li>
-            </ul>  
+            <li><a href="https://www.gojobs.gov.on.ca/" target="_blank">Go to Google</a></li>  
             `;
             }
-            else if (highestCategory === "Arts, Entertainment and Recreation") {
-                recommendation = "Food or hospitality careers";
+            else if (highestCategory === "arts") {
                 recommendation = `
-            </ul> 
             <p>You might enjoy a job in the arts, entertainment and recreation industry. This industry creates experiences, performances, and activities that bring people joy and connection.</p>
             <p>There are actors, producers, creative technicians, event producers, and creative directors building the things people love. If you’re drawn to creativity, storytelling, or performance, this space turns passion into careers.</p>
             <p>Here are a few career options in this industry →</p>
-            <li><a href="https://ca.indeed.com/career-advice/finding-a-job/ideas-for-job" target="_blank">Go to Google</a><li>
-            </ul>  
+            <li><a href="https://ca.indeed.com/career-advice/finding-a-job/ideas-for-job" target="_blank">Go to Google</a></li>  
             `;
             }
-            else if (highestCategory === "Accommodation and Food Services") {
+            else if (highestCategory === "food") {
                 recommendation = `
                 <p>You might enjoy a job in the accommodation and food services industry. This industry provides places to stay, food to eat, and experiences for guests and travelers. Here are sites to consult about this.</p>
                 <p>It includes chefs, hotel managers, event coordinators, and hospitality leaders creating memorable experiences. If you like fast-paced environments and working with people, this field can take you anywhere in the world.</p>
                 <p>Here are a few career options in this industry →</p>
-                <ul>
-                <li><a href="https://www.gojobs.gov.on.ca/" target="_blank">Go to Google</a><li>
-                </ul> 
+                <li><a href="https://www.gojobs.gov.on.ca/" target="_blank">Go to Google</a></li>
             `;
             }
-            else if (highestCategory === "Public Administration") {
+            else if (highestCategory === "publicy") {
                 recommendation = `
                 <p>You might enjoy a job in the public administration industry. This industry runs government systems and public services that impact entire populations.</p>
                 <p>There are law enforcement officers, firehighters, military personnel, program managers, and public leaders shaping decisions that affect millions of people. If you want to influence real change at a large scale, this is where that work happens.</p>
                 <p>Here are a few career options in this industry →</p>
-                <ul>
-                <li><a href="https://pathways2advancement.org/career-pathways/public-administration/careers-in-public-administration/" target="_blank">Go to Google</a><li>
-                </ul> 
+                <li><a href="https://pathways2advancement.org/career-pathways/public-administration/careers-in-public-administration/" target="_blank">Go to Google</a></li>
             `;
             }
-            else if (highestCategory === "Other Services (excluding Public Administration)") {
+            else if (highestCategory === "other") {
                 recommendation = `
                 <p>You might enjoy a job in the other services (equipment/machinery repair) industry. This industry focuses on specialized services that keep everyday tools, systems, and personal needs running smoothly.</p>
                 <p>There are technicians, specialists, and niche experts who build careers around very specific, in-demand skills. These paths are often overlooked, but they can be stable, well-paid, and surprisingly flexible.</p>
                 <p>Here are a few career options in this industry →</p>
-                <ul>
-                <li><a href="https://www.gojobs.gov.on.ca/" target="_blank">Go to Google</a><li>
-                <li><a href="https://ca.indeed.com/career-advice/finding-a-job/ideas-for-job" target="_blank">Go to Google</a><li>
-                </ul> 
+                <li><a href="https://www.gojobs.gov.on.ca/" target="_blank">Go to Google</a></li>
+                <li><a href="https://ca.indeed.com/career-advice/finding-a-job/ideas-for-job" target="_blank">Go to Google</a></li> 
             `;
-            }
-            else { //if there is a tie
-                recommendation = "A mix of careers — explore multiple fields!";
-                // print both the two highest categories    
             }
             document.getElementById("recommendation").innerHTML = recommendation;
 
